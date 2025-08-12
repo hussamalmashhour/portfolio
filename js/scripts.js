@@ -28,7 +28,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   // ===== Load JSON v2 and render =====
   try {
     // after
-const data = await fetchJSON('./data/portfolio.v2.json?v=' + Date.now());
+  const data = await fetchJSON('./data/portfolio.v2.json?v=' + Date.now());
+  console.log('portfolio data:', data);
 
     applySiteMeta(data.site);
     applyVisibilityOrder(data.site?.sections || []);
