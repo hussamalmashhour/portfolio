@@ -257,20 +257,25 @@ function renderAbout(about = {}) {
       .join('');
   }
 
-  // Remove any existing download buttons first
-  const existingDownloadButtons = q('#about .download-buttons-wrapper');
-  if (existingDownloadButtons) {
-    existingDownloadButtons.remove();
+  // Handle download buttons - more robust solution
+  const downloadButtonsContainerId = 'download-buttons-container';
+  let downloadContainer = q(`#${downloadButtonsContainerId}`);
+  
+  // If container doesn't exist, create it
+  if (!downloadContainer && about.downloadables?.length) {
+    downloadContainer = document.createElement('div');
+    downloadContainer.id = downloadButtonsContainerId;
+    downloadContainer.className = 'mt-3';
+    socialsEl?.after(downloadContainer);
   }
-
-  // Add download CV buttons under the social icons
-  if (about.downloadables?.length) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'mt-3 download-buttons-wrapper'; // Added specific class
-    wrapper.innerHTML = about.downloadables.map(d =>
-      `<a class="btn btn-sm btn-outline-primary me-2" href="${escapeHTML(d.href)}" target="_blank" rel="noreferrer">${escapeHTML(d.label)}</a>`
-    ).join('');
-    socialsEl?.after(wrapper);
+  
+  // Update content if container exists
+  if (downloadContainer) {
+    downloadContainer.innerHTML = about.downloadables?.length 
+      ? about.downloadables.map(d =>
+          `<a class="btn btn-sm btn-outline-primary me-2" href="${escapeHTML(d.href)}" target="_blank" rel="noreferrer">${escapeHTML(d.label)}</a>`
+        ).join('')
+      : '';
   }
 }
 
