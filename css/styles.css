@@ -10970,3 +10970,101 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }
+
+
+
+/* =========================
+   THEMES — paste at end of styles.css
+   Pick one by putting its class on <body> (see step 2)
+   ========================= */
+
+/* Base: keep sensible defaults for buttons/links */
+:root {
+  --primary-50:  #eef2ff;
+  --primary-100: #e0e7ff;
+  --primary-200: #c7d2fe;
+  --primary-300: #a5b4fc;
+  --primary-400: #818cf8;
+  --primary-500: #6366f1;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-800: #3730a3;
+  --primary-900: #312e81;
+}
+
+/* Utility to apply a palette to Bootstrap tokens */
+.theme {
+  --bs-primary: var(--theme-primary, #6366f1);
+  --bs-primary-rgb: var(--theme-primary-rgb, 99,102,241);
+  --bs-link-color: var(--theme-link, var(--bs-primary));
+  --bs-link-hover-color: var(--theme-link-hover, #4f46e5);
+}
+
+/* ===== Ocean (blue/teal) ===== */
+.theme-ocean {
+  --theme-primary: #0ea5e9;
+  --theme-primary-rgb: 14,165,233;
+  --theme-link: #0ea5e9;
+  --theme-link-hover: #0284c7;
+}
+
+/* ===== Midnight (deep indigo) ===== */
+.theme-midnight {
+  --theme-primary: #4f46e5;
+  --theme-primary-rgb: 79,70,229;
+  --theme-link: #4f46e5;
+  --theme-link-hover: #4338ca;
+}
+
+/* ===== Emerald (green) ===== */
+.theme-emerald {
+  --theme-primary: #10b981;
+  --theme-primary-rgb: 16,185,129;
+  --theme-link: #10b981;
+  --theme-link-hover: #059669;
+}
+
+/* ===== Rose (warm) ===== */
+.theme-rose {
+  --theme-primary: #e11d48;
+  --theme-primary-rgb: 225,29,72;
+  --theme-link: #e11d48;
+  --theme-link-hover: #be123c;
+}
+
+/* ===== Charcoal (muted blue‑gray) ===== */
+.theme-charcoal {
+  --theme-primary: #475569;       /* slate‑600 */
+  --theme-primary-rgb: 71,85,105;
+  --theme-link: #334155;          /* slate‑700 */
+  --theme-link-hover: #1f2937;    /* slate‑800 */
+}
+
+/* Ensure Bootstrap utilities use our tokens */
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+a {
+  color: var(--bs-link-color);
+}
+a:hover {
+  color: var(--bs-link-hover-color);
+}
+
+/* Optional: soften the sidebar a bit */
+#sideNav.bg-primary {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--bs-primary) 92%, #000 0%) 0%,
+    color-mix(in srgb, var(--bs-primary) 85%, #000 0%) 100%);
+}
+
+/* Optional: badges and progress bars follow the theme */
+.badge.bg-secondary {
+  background-color: color-mix(in srgb, var(--bs-primary) 25%, #6b7280 75%) !important;
+}
+.progress-bar {
+  background-color: var(--bs-primary);
+}
