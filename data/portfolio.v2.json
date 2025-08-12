@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "2.0.0",
+  "generatedAt": "2025-08-12T20:00:00Z",
+  "site": {
+    "title": "Hussam Al Mashhour — Software Engineer",
+    "theme": "startbootstrap-resume",
+    "language": "en",
+    "featureFlags": {
+      "showAvatar": true,
+      "showDownloadCV": true,
+      "useBadgesForSkills": true,
+      "showProjectImages": true
+    },
+    "sections": [
+      { "id": "about", "title": "About", "visible": true, "order": 1 },
+      { "id": "experience", "title": "Experience", "visible": true, "order": 2 },
+      { "id": "projects", "title": "Projects", "visible": true, "order": 3 },
+      { "id": "skills", "title": "Skills", "visible": true, "order": 4 },
+      { "id": "education", "title": "Education", "visible": true, "order": 5 },
+      { "id": "certifications", "title": "Certifications", "visible": true, "order": 6 },
+      { "id": "volunteering", "title": "Volunteering", "visible": true, "order": 7 },
+      { "id": "awards", "title": "Awards", "visible": false, "order": 8 }
+    ]
+  },
+
+  "about": {
+    "name": { "first": "Hussam", "last": "Al Mashhour" },
+    "headline": "Software Engineer (Full‑Stack: Flutter • Laravel • Vue)",
+    "location": { "city": "Madrid", "country": "Spain", "remote": true, "onsite": true },
+    "avatar": "assets/img/profile.jpg",
+    "summary": "Full‑stack engineer focused on clean architecture, testability, and efficient mobile/web delivery. Experienced with Flutter (BLoC/GetX), Laravel/Vue, REST APIs, and Firebase.",
+    "availability": {
+      "status": "open_to_work",
+      "roles": ["Mobile Engineer", "Full‑Stack Engineer"],
+      "employmentTypes": ["Full‑time", "Contract", "Freelance"]
+    },
+    "contacts": [
+      {
+        "type": "email",
+        "label": "Email",
+        "value": "almashhourhussam@gmail.com",
+        "href": "mailto:almashhourhussam@gmail.com",
+        "icon": "fa-solid fa-envelope"
+      },
+      {
+        "type": "phone",
+        "label": "Phone",
+        "value": "+34 652 478 276",
+        "href": "tel:+34652478276",
+        "icon": "fa-solid fa-phone"
+      },
+      {
+        "type": "github",
+        "label": "GitHub",
+        "value": "samo999",
+        "href": "https://github.com/samo999",
+        "icon": "fab fa-github"
+      },
+      {
+        "type": "gitlab",
+        "label": "GitLab",
+        "value": "hussam_99",
+        "href": "https://gitlab.com/hussam_99",
+        "icon": "fab fa-gitlab"
+      },
+      {
+        "type": "linkedin",
+        "label": "LinkedIn",
+        "value": "hussam-mashhour",
+        "href": "https://www.linkedin.com/in/hussam-mashhour/",
+        "icon": "fab fa-linkedin"
+      }
+    ],
+    "downloadables": [
+      { "label": "Download CV (EN, PDF)", "href": "assets/cv/Hussam-Al-Mashhour-EN.pdf" },
+      { "label": "Download CV (ES, PDF)", "href": "assets/cv/Hussam-Al-Mashhour-ES.pdf" }
+    ],
+    "languages": [
+      { "name": "Arabic", "level": "Native", "iso": "ar" },
+      { "name": "English", "level": "C1", "iso": "en" },
+      { "name": "Spanish", "level": "B2", "iso": "es" }
+    ]
+  },
+
+  "skills": {
+    "categories": [
+      {
+        "name": "Mobile",
+        "items": [
+          { "name": "Flutter", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["dart","mobile","ui"] },
+          { "name": "Dart", "level": 5, "years": 3, "lastUsed": "2025" },
+          { "name": "BLoC", "level": 4, "years": 2, "lastUsed": "2025" },
+          { "name": "GetX", "level": 4, "years": 2, "lastUsed": "2024" }
+        ]
+      },
+      {
+        "name": "Backend",
+        "items": [
+          { "name": "Laravel", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["php","rest"] },
+          { "name": "Node.js", "level": 3, "years": 1, "lastUsed": "2024" },
+          { "name": "REST APIs", "level": 5, "years": 4, "lastUsed": "2025" },
+          { "name": "Firebase", "level": 4, "years": 2, "lastUsed": "2024" }
+        ]
+      },
+      {
+        "name": "Frontend",
+        "items": [
+          { "name": "Vue.js", "level": 4, "years": 2, "lastUsed": "2025" },
+          { "name": "JavaScript", "level": 4, "years": 4, "lastUsed": "2025" },
+          { "name": "Bootstrap", "level": 5, "years": 4, "lastUsed": "2025" }
+        ]
+      },
+      {
+        "name": "Databases",
+        "items": [
+          { "name": "MySQL", "level": 4, "years": 3, "lastUsed": "2025" },
+          { "name": "MongoDB", "level": 3, "years": 1, "lastUsed": "2024" }
+        ]
+      },
+      {
+        "name": "Practices",
+        "items": [
+          { "name": "Clean Architecture", "level": 5 },
+          { "name": "TDD", "level": 3 },
+          { "name": "OOP", "level": 5 },
+          { "name": "Agile/Scrum", "level": 4 }
+        ]
+      },
+      {
+        "name": "Tools",
+        "items": [
+          { "name": "Git", "level": 5 },
+          { "name": "Docker", "level": 3 },
+          { "name": "JIRA", "level": 4 },
+          { "name": "Figma", "level": 4 },
+          { "name": "Postman", "level": 5 }
+        ]
+      }
+    ]
+  },
+
+  "experience": [
+    {
+      "id": "yes-mobile-dev",
+      "role": "Mobile Application Developer",
+      "company": "YES, for online services",
+      "location": "Homs, Syria",
+      "employment": { "type": "Hybrid", "start": "2023-07", "end": "2024-08" },
+      "summary": "Built and maintained production Flutter apps; optimized performance and integrated REST/Firebase.",
+      "stack": ["Flutter","Dart","BLoC","GetX","Firebase","REST"],
+      "highlights": [
+        "Reduced loading time by **30%** through Firebase optimization.",
+        "Delivered **3+** production Flutter apps with state management (BLoC/GetX).",
+        "Implemented UX from Figma prototypes and coordinated releases with version control."
+      ],
+      "links": [],
+      "tags": ["mobile","flutter","performance"]
+    },
+    {
+      "id": "batec-ict",
+      "role": "Junior ICT Engineer",
+      "company": "BATEC (BEAM Regional Gypsum Board Company)",
+      "location": "Homs, Syria",
+      "employment": { "type": "Onsite", "start": "2023-09", "end": "2024-03" },
+      "summary": "IT support and security; automation for asset tracking; SLA‑driven incident resolution.",
+      "stack": ["Python","Networking","Windows Admin"],
+      "highlights": [
+        "Resolved **95%** of critical incidents within SLA.",
+        "Reduced system vulnerabilities by **40%** via security policies.",
+        "Automated hardware inventory tracking with Python."
+      ],
+      "links": [],
+      "tags": ["it","security","automation"]
+    }
+  ],
+
+  "projects": [
+    {
+      "id": "famous-production",
+      "name": "Famous Production",
+      "subtitle": "Multi‑Platform Task Management",
+      "dates": "2025-06 – Present",
+      "role": "Full‑Stack Engineer",
+      "summary": "Laravel/Vue web and Flutter mobile consuming shared REST APIs for consistent auth/data flows.",
+      "outcomes": [
+        "Established scalable REST architecture for multi‑platform expansion.",
+        "Unified auth across mobile/web with token strategy."
+      ],
+      "stack": ["Laravel","Vue.js","Flutter","REST","MySQL"],
+      "links": [],
+      "media": [],
+      "tags": ["fullstack","architecture"]
+    },
+    {
+      "id": "id-book",
+      "name": "ID‑BOOK",
+      "subtitle": "Mobile App",
+      "dates": "2023-07 – 2024-08",
+      "role": "Mobile Engineer",
+      "summary": "Flutter app with AI‑driven search, ads modules, and Firebase integration.",
+      "outcomes": ["Improved app performance by **40%** post testing/optimization."],
+      "stack": ["Flutter","Dart","Firebase","GetX"],
+      "links": [{ "label": "Repo", "href": "https://gitlab.com/hussam_99/id-book" }],
+      "media": [],
+      "tags": ["flutter","firebase","mobile"]
+    },
+    {
+      "id": "clean-arch-posts",
+      "name": "Clean Architecture Posts App",
+      "subtitle": "Personal Project",
+      "dates": "2024-03",
+      "role": "Mobile Engineer",
+      "summary": "Testable Flutter app with BLoC and modular layers; mock APIs for fast iteration.",
+      "outcomes": ["Enhanced modularity and maintainability via strict layering."],
+      "stack": ["Flutter","BLoC","MockAPI"],
+      "links": [{ "label": "Repo", "href": "https://gitlab.com/hussam_99/posts-app-flutter-bloc" }],
+      "tags": ["clean-architecture","bloc"]
+    },
+    {
+      "id": "darrebni",
+      "name": "Darrebni Management System",
+      "subtitle": "Backend",
+      "dates": "2023-12 – 2024-02",
+      "role": "Backend Engineer",
+      "summary": "Laravel backend with business logic, REST APIs, and MySQL models for enterprise client.",
+      "outcomes": ["Delivered maintainable API surface aligned with stakeholder objectives."],
+      "stack": ["Laravel","PHP","MySQL","REST"],
+      "links": [{ "label": "Repo", "href": "https://gitlab.com/hussam_99/darrebni-management-system" }],
+      "tags": ["laravel","backend"]
+    }
+  ],
+
+  "education": [
+    {
+      "degree": "M.Sc. Informatics Engineering",
+      "school": "University of Salamanca",
+      "location": "Spain",
+      "start": "2024",
+      "end": "Present",
+      "courses": [],
+      "thesis": null
+    },
+    {
+      "degree": "B.Sc. Software Engineering & Information Systems",
+      "school": "Al‑Baath University",
+      "location": "Syria",
+      "start": "2018",
+      "end": "2023",
+      "courses": ["Software Engineering", "Information Systems"],
+      "thesis": null
+    }
+  ],
+
+  "certifications": [
+    { "name": "Laravel Development Training", "issuer": "Darebin Company", "start": "2023-08", "end": "2024-02" },
+    { "name": "English C1", "issuer": "HDISC, Homs", "start": "2023-03", "end": "2024-07" },
+    { "name": "Computer Maintenance", "issuer": "GOPA DRED & UNFPA", "start": "2022-02", "end": "2022-03" }
+  ],
+
+  "volunteering": [
+    {
+      "title": "Senior Team Leader",
+      "org": "Patriarchate of Antioch for Greek Orthodox Christians, Homs",
+      "dates": "2014 – 2023-03",
+      "summary": "Coordinated large events, mentored volunteers, and collaborated with media/design.",
+      "highlights": [
+        "Coordinated **50+** teams for events with **1000+** attendees.",
+        "Built websites/mobile apps with tech teams; led social media strategy."
+      ],
+      "links": []
+    }
+  ],
+
+  "testimonials": [],
+  "clients": [],
+  "services": [
+    {
+      "name": "Flutter App Development",
+      "description": "End‑to‑end Android/iOS delivery with CI/CD and state management best practices.",
+      "tags": ["flutter","mobile","ci-cd"]
+    },
+    {
+      "name": "Laravel Backends & APIs",
+      "description": "REST design, auth, caching, testing, and database modeling.",
+      "tags": ["laravel","api","mysql"]
+    }
+  ]
+}
