@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "2.0.0",
+  "site": {
+    "title": "Hussam Al Mashhour — Ingeniero de Software",
+    "theme": "startbootstrap-resume",
+    "sections": [
+      { "id": "about", "title": "Sobre mí", "visible": true, "order": 1 },
+      { "id": "experience", "title": "Experiencia", "visible": true, "order": 2 },
+      { "id": "projects", "title": "Proyectos", "visible": true, "order": 3 },
+      { "id": "skills", "title": "Habilidades", "visible": true, "order": 4 },
+      { "id": "education", "title": "Educación", "visible": true, "order": 5 },
+      { "id": "certifications", "title": "Certificaciones", "visible": true, "order": 6 },
+      { "id": "volunteering", "title": "Voluntariado", "visible": true, "order": 7 }
+    ]
+  },
+  "about": {
+    "name": { "first": "Hussam", "last": "Al Mashhour" },
+    "headline": "Ingeniero de Software (Full‑Stack: Flutter • Laravel • Vue)",
+    "location": { "city": "Madrid", "country": "España" },
+    "summary": "Ingeniero full-stack enfocado en arquitectura limpia...",
+    "languages": [
+      { "name": "Árabe", "level": "Nativo" },
+      { "name": "Inglés", "level": "C1" },
+      { "name": "Español", "level": "B2" }
+    ]
+  },
+  "experience": [
+    {
+      "role": "Desarrollador de Aplicaciones Móviles",
+      "company": "YES, para servicios en línea",
+      "summary": "Construí y mantuve aplicaciones Flutter en producción...",
+      "highlights": [
+        "Reduje el tiempo de carga en un 30% mediante optimización de Firebase."
+      ]
+    }
+  ]
+}

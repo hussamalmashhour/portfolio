@@ -1,11 +1,26 @@
 /*!
- * Resume template + JSON renderer (v2)
- * Works with ./data/portfolio.v2.json
- * Section IDs: #about, #experience, #education, #skills, #interests, #awards
+ * Resume template with multi-language support
+ * Loads either portfolio.en.json or portfolio.es.json
  */
 
+// Current language and data
+let currentLanguage = 'en';
+let portfolioData = null;
+
+// Language configuration
+const languageConfig = {
+  en: {
+    file: './data/portfolio.en.json',
+    name: 'English'
+  },
+  es: {
+    file: './data/portfolio.es.json',
+    name: 'Español'
+  }
+};
+
 window.addEventListener('DOMContentLoaded', async () => {
-  // ===== Keep existing behavior (ScrollSpy + responsive toggler) =====
+  // Initialize scrollspy and responsive navbar
   const sideNav = document.body.querySelector('#sideNav');
   if (sideNav) {
     new bootstrap.ScrollSpy(document.body, {
@@ -13,6 +28,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       rootMargin: '0px 0px -40%',
     });
   }
+  
   const navbarToggler = document.body.querySelector('.navbar-toggler');
   const responsiveNavItems = [].slice.call(
     document.querySelectorAll('#navbarResponsive .nav-link')
@@ -25,57 +41,107 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // ===== Load JSON v2 and render =====
-  try {
-    const data = await fetchJSON('./data/portfolio.v2.json');
-    // console.log('portfolio data:', data);
+  // Initialize language switcher
+  setupLanguageSwitcher();
 
-    applySiteMeta(data.site);
-    applyVisibilityOrder(data.site?.sections || []);
-
-    renderAbout(data.about);
-    renderExperience(data.experience || []);
-    renderProjects(data.projects || []);             // maps to #interests
-    renderSkills(data.skills || {});
-    renderEducation(data.education || []);
-    renderCertsAndVolunteering(
-      data.certifications || [],
-      data.volunteering || []
-    );                                               // both go to #awards
-  } catch (err) {
-    console.error('Failed to load portfolio JSON:', err);
-    const aboutLead = q('#about .lead') || q('#about');
-    if (aboutLead) aboutLead.textContent = 'Unable to load profile data. Please try reloading.';
-  }
+  // Load data based on saved language preference or browser language
+  const savedLanguage = localStorage.getItem('portfolioLanguage');
+  const browserLanguage = navigator.language.split('-')[0];
+  const defaultLanguage = Object.keys(languageConfig).includes(browserLanguage) ? browserLanguage : 'en';
+  const initialLanguage = savedLanguage || defaultLanguage;
+  
+  await loadLanguageData(initialLanguage);
 });
 
-/* ------------------------ helpers ------------------------ */
-const STORAGE_KEY = 'portfolio.v2.json';
-
-async function fetchJSON(url) {
-  // 1) Session cache for instant reloads
-  const cached = sessionStorage.getItem(STORAGE_KEY);
-  if (cached) {
-    try { return JSON.parse(cached); } catch {}
+async function loadLanguageData(lang) {
+  try {
+    if (!languageConfig[lang]) {
+      throw new Error(`Language ${lang} not supported`);
+    }
+    
+    const response = await fetch(languageConfig[lang].file);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    portfolioData = await response.json();
+    currentLanguage = lang;
+    localStorage.setItem('portfolioLanguage', lang);
+    
+    // Update UI
+    updateLanguageSwitcher();
+    renderAllContent();
+  } catch (error) {
+    console.error('Failed to load portfolio data:', error);
+    
+    // Fallback to English if preferred language fails
+    if (lang !== 'en') {
+      await loadLanguageData('en');
+    } else {
+      showErrorState();
+    }
   }
-  // 2) Let the browser cache the file between visits
-  const res = await fetch(url, { cache: 'force-cache' });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(json));
-  return json;
 }
 
+function setupLanguageSwitcher() {
+  const languageOptions = qa('.language-option');
+  languageOptions.forEach(option => {
+    option.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const lang = e.target.getAttribute('data-lang');
+      if (lang !== currentLanguage) {
+        await loadLanguageData(lang);
+      }
+    });
+  });
+}
+
+function updateLanguageSwitcher() {
+  const currentLangEl = q('#currentLanguage');
+  if (currentLangEl) {
+    currentLangEl.textContent = languageConfig[currentLanguage]?.name || 'English';
+  }
+}
+
+function renderAllContent() {
+  if (!portfolioData) return;
+  
+  applySiteMeta(portfolioData.site);
+  applyVisibilityOrder(portfolioData.site?.sections || []);
+  
+  renderAbout(portfolioData.about);
+  renderExperience(portfolioData.experience || []);
+  renderProjects(portfolioData.projects || []);
+  renderSkills(portfolioData.skills || {});
+  renderEducation(portfolioData.education || []);
+  renderCertsAndVolunteering(
+    portfolioData.certifications || [],
+    portfolioData.volunteering || []
+  );
+  renderLanguages(portfolioData.about?.languages || []);
+}
+
+function showErrorState() {
+  const aboutLead = q('#about .lead') || q('#about');
+  if (aboutLead) {
+    aboutLead.textContent = 'Unable to load profile data. Please try reloading.';
+  }
+}
+
+/* ------------------------ helpers ------------------------ */
 const q  = (sel, root = document) => root.querySelector(sel);
 const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 function monthYear(iso) {
   if (!iso) return '';
-  if (iso === 'Present') return 'Present';
+  if (iso === 'Present') return currentLanguage === 'es' ? 'Actual' : 'Present';
+  
   const [y, m] = (iso + '').split('-');
   if (!m) return y;
+  
   const d = new Date(Number(y), Number(m) - 1, 1);
-  return d.toLocaleString('en', { month: 'long', year: 'numeric' });
+  return d.toLocaleDateString(currentLanguage, { 
+    month: 'long', 
+    year: 'numeric' 
+  });
 }
 
 function escapeHTML(str = '') {
@@ -99,7 +165,7 @@ function applyVisibilityOrder(sections) {
     projects: '#interests',
     skills: '#skills',
     education: '#education',
-    certifications: '#awards', // share with volunteering
+    certifications: '#awards',
     volunteering: '#awards'
   };
 
@@ -202,14 +268,48 @@ function renderAbout(about = {}) {
   }
 }
 
+function renderLanguages(languages = []) {
+  const aboutSection = q('#about .resume-section-content');
+  if (!aboutSection || !languages.length) return;
+  
+  // Remove existing languages section if present
+  const existingSection = q('#languages-section');
+  if (existingSection) existingSection.remove();
+  
+  const languagesHtml = `
+    <div id="languages-section" class="mt-4">
+      <h3 class="mb-3">${currentLanguage === 'es' ? 'Idiomas' : 'Languages'}</h3>
+      <ul class="list-unstyled">
+        ${languages.map(lang => `
+          <li class="mb-2">
+            <strong>${escapeHTML(lang.name)}</strong>: ${escapeHTML(lang.level)}
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `;
+  
+  // Append after social icons or download buttons
+  const lastElement = q('.social-icons', aboutSection) || 
+                     q('.btn-outline-primary:last-child', aboutSection) || 
+                     q('.lead', aboutSection);
+  
+  if (lastElement) {
+    lastElement.insertAdjacentHTML('afterend', languagesHtml);
+  }
+}
+
 function renderExperience(items = []) {
   const wrap = q('#experience .resume-section-content');
   if (!wrap) return;
 
+  const sectionTitle = currentLanguage === 'es' ? 'Experiencia' : 'Experience';
+  const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
+
   const blocks = items.map(x => {
     const bullets = (x.highlights || x.bullets || []).map(b => `<li>${b}</li>`).join('');
-    const stack = x.stack?.length ? `<div class="small text-muted mt-2">Stack: ${x.stack.join(', ')}</div>` : '';
-    const when = `${monthYear(x.employment?.start)} – ${x.employment?.end ? monthYear(x.employment.end) : 'Present'}`;
+    const stack = x.stack?.length ? `<div class="small text-muted mt-2">${stackLabel}: ${x.stack.join(', ')}</div>` : '';
+    const when = `${monthYear(x.employment?.start)} – ${x.employment?.end ? monthYear(x.employment.end) : currentLanguage === 'es' ? 'Actual' : 'Present'}`;
     const loc = [x.company, x.location].filter(Boolean).join(' — ');
 
     return `
@@ -226,19 +326,22 @@ function renderExperience(items = []) {
     `;
   }).join('');
 
-  wrap.innerHTML = `<h2 class="mb-5">Experience</h2>${blocks}`;
+  wrap.innerHTML = `<h2 class="mb-5">${sectionTitle}</h2>${blocks}`;
 }
 
 function renderProjects(items = []) {
   const wrap = q('#interests .resume-section-content');
   if (!wrap) return;
 
+  const sectionTitle = currentLanguage === 'es' ? 'Proyectos' : 'Projects';
+  const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
+
   const blocks = items.map(p => {
     const links = (p.links || []).map(l =>
       `<a class="me-2" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(l.label)}</a>`
     ).join('');
     const outcomes = (p.outcomes || []).map(o => `<li>${o}</li>`).join('');
-    const stack = p.stack?.length ? `<div class="small text-muted mt-1">Stack: ${p.stack.join(', ')}</div>` : '';
+    const stack = p.stack?.length ? `<div class="small text-muted mt-1">${stackLabel}: ${p.stack.join(', ')}</div>` : '';
 
     return `
       <div class="mb-4">
@@ -253,12 +356,14 @@ function renderProjects(items = []) {
     `;
   }).join('');
 
-  wrap.innerHTML = `<h2 class="mb-5">Projects</h2>${blocks}`;
+  wrap.innerHTML = `<h2 class="mb-5">${sectionTitle}</h2>${blocks}`;
 }
 
 function renderSkills(skills = {}) {
   const wrap = q('#skills .resume-section-content');
   if (!wrap) return;
+
+  const sectionTitle = currentLanguage === 'es' ? 'Habilidades' : 'Skills';
 
   const categoryBlocks = (skills.categories || []).map(cat => {
     const items = (cat.items || []).map(it => {
@@ -285,7 +390,7 @@ function renderSkills(skills = {}) {
   }).join('');
 
   wrap.innerHTML = `
-    <h2 class="mb-5">Skills</h2>
+    <h2 class="mb-5">${sectionTitle}</h2>
     ${categoryBlocks}
   `;
 }
@@ -294,24 +399,32 @@ function renderEducation(items = []) {
   const wrap = q('#education .resume-section-content');
   if (!wrap) return;
 
+  const sectionTitle = currentLanguage === 'es' ? 'Educación' : 'Education';
+  const coursesLabel = currentLanguage === 'es' ? 'Cursos seleccionados' : 'Selected courses';
+  const thesisLabel = currentLanguage === 'es' ? 'Tesis' : 'Thesis';
+
   const blocks = items.map(e => `
     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
       <div class="flex-grow-1">
         <h3 class="mb-0">${escapeHTML(e.school || '')}</h3>
         <div class="subheading mb-3">${escapeHTML(e.degree || '')}${e.location ? ' — ' + escapeHTML(e.location) : ''}</div>
-        ${e.courses?.length ? `<div class="small">Selected courses: ${e.courses.map(escapeHTML).join(', ')}</div>` : ''}
-        ${e.thesis ? `<div class="small text-muted mt-1">Thesis: ${escapeHTML(e.thesis)}</div>` : ''}
+        ${e.courses?.length ? `<div class="small">${coursesLabel}: ${e.courses.map(escapeHTML).join(', ')}</div>` : ''}
+        ${e.thesis ? `<div class="small text-muted mt-1">${thesisLabel}: ${escapeHTML(e.thesis)}</div>` : ''}
       </div>
       <div class="flex-shrink-0"><span class="text-primary">${escapeHTML(e.start || '')} – ${escapeHTML(e.end || '')}</span></div>
     </div>
   `).join('');
 
-  wrap.innerHTML = `<h2 class="mb-5">Education</h2>${blocks}`;
+  wrap.innerHTML = `<h2 class="mb-5">${sectionTitle}</h2>${blocks}`;
 }
 
 function renderCertsAndVolunteering(certs = [], volunteering = []) {
   const wrap = q('#awards .resume-section-content');
   if (!wrap) return;
+
+  const sectionTitle = currentLanguage === 'es' ? 'Certificaciones y Voluntariado' : 'Certifications & Volunteering';
+  const certsTitle = currentLanguage === 'es' ? 'Certificaciones' : 'Certifications';
+  const volTitle = currentLanguage === 'es' ? 'Voluntariado' : 'Volunteering';
 
   const certList = certs.map(c => `
     <li><strong>${escapeHTML(c.name || '')}</strong> — ${escapeHTML(c.issuer || '')} (${monthYear(c.start)} – ${monthYear(c.end)})</li>
@@ -326,8 +439,8 @@ function renderCertsAndVolunteering(certs = [], volunteering = []) {
   `).join('');
 
   wrap.innerHTML = `
-    <h2 class="mb-5">Certifications & Volunteering</h2>
-    ${certList ? `<h5 class="mt-2">Certifications</h5><ul>${certList}</ul>` : ''}
-    ${volList ? `<h5 class="mt-3">Volunteering</h5><ul>${volList}</ul>` : ''}
+    <h2 class="mb-5">${sectionTitle}</h2>
+    ${certList ? `<h5 class="mt-2">${certsTitle}</h5><ul>${certList}</ul>` : ''}
+    ${volList ? `<h5 class="mt-3">${volTitle}</h5><ul>${volList}</ul>` : ''}
   `;
 }
