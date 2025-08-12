@@ -1,7 +1,7 @@
 /*!
- * Resume template + JSON renderer
- * Works with /data/portfolio.v2.json (schemaVersion 2.x)
- * Keep your existing section IDs: #about, #experience, #education, #skills, #interests, #awards
+ * Resume template + JSON renderer (v2)
+ * Works with ./data/portfolio.v2.json
+ * Section IDs: #about, #experience, #education, #skills, #interests, #awards
  */
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -27,9 +27,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   // ===== Load JSON v2 and render =====
   try {
-    // after
-  const data = await fetchJSON('./data/portfolio.v2.json?v=' + Date.now());
-  console.log('portfolio data:', data);
+    const data = await fetchJSON('./data/portfolio.v2.json');
+    // console.log('portfolio data:', data);
 
     applySiteMeta(data.site);
     applyVisibilityOrder(data.site?.sections || []);
@@ -45,19 +44,29 @@ window.addEventListener('DOMContentLoaded', async () => {
     );                                               // both go to #awards
   } catch (err) {
     console.error('Failed to load portfolio JSON:', err);
-    // Optional: show a friendly fallback message in #about
-    const aboutLead = q('#about .lead');
+    const aboutLead = q('#about .lead') || q('#about');
     if (aboutLead) aboutLead.textContent = 'Unable to load profile data. Please try reloading.';
   }
 });
 
 /* ------------------------ helpers ------------------------ */
+const STORAGE_KEY = 'portfolio.v2.json';
+
 async function fetchJSON(url) {
-  const res = await fetch(url, { cache: 'no-store' });
+  // 1) Session cache for instant reloads
+  const cached = sessionStorage.getItem(STORAGE_KEY);
+  if (cached) {
+    try { return JSON.parse(cached); } catch {}
+  }
+  // 2) Let the browser cache the file between visits
+  const res = await fetch(url, { cache: 'force-cache' });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  const json = await res.json();
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(json));
+  return json;
 }
-const q = (sel, root = document) => root.querySelector(sel);
+
+const q  = (sel, root = document) => root.querySelector(sel);
 const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 function monthYear(iso) {
@@ -77,10 +86,10 @@ function escapeHTML(str = '') {
 
 function applySiteMeta(site = {}) {
   if (site.title) document.title = site.title;
-  // Feature flags are available if you want to toggle UI without code changes
+  // Feature flags would be read here if needed
 }
 
-/** Hide sections marked visible:false in site.sections and (optionally) reorder headings in the navbar */
+/** Hide sections marked visible:false in site.sections and reorder nav items */
 function applyVisibilityOrder(sections) {
   const byId = Object.fromEntries(sections.map(s => [s.id, s]));
   // Map logical IDs to template section IDs
@@ -108,23 +117,25 @@ function applyVisibilityOrder(sections) {
     }
   });
 
-  // Navbar order (optional)
+  // Navbar order (de-duplicate anchors like #awards)
   const navUl = q('#navbarResponsive .navbar-nav');
   if (!navUl) return;
   const currentLis = qa('li.nav-item', navUl);
   const liByHref = new Map(currentLis.map(li => [li.querySelector('a')?.getAttribute('href'), li]));
-  // Build desired order from sections[]; skip those without a nav link in template
+
   const desiredOrder = sections
     .filter(s => s.visible !== false)
     .sort((a, b) => (a.order || 0) - (b.order || 0))
-    .map(s => {
-      const css = idMap[s.id] || `#${s.id}`;
-      return liByHref.get(css);
-    })
+    .map(s => liByHref.get(idMap[s.id] || `#${s.id}`))
     .filter(Boolean);
 
-  // Append in desired order
-  desiredOrder.forEach(li => navUl.appendChild(li));
+  const seen = new Set();
+  desiredOrder.forEach(li => {
+    const href = li.querySelector('a')?.getAttribute('href');
+    if (seen.has(href)) return;
+    seen.add(href);
+    navUl.appendChild(li);
+  });
 }
 
 /* ------------------------ renderers ------------------------ */
@@ -135,6 +146,10 @@ function renderAbout(about = {}) {
   const summaryEl = q('#about .lead');
   const socialsEl = q('#about .social-icons');
   const avatar = q('#sideNav img.img-profile');
+
+  // remove loading skeleton if present
+  const sk = document.getElementById('about-skeleton');
+  if (sk) sk.remove();
 
   if (nameEl) {
     const first = escapeHTML(about.name?.first || '');
@@ -245,12 +260,7 @@ function renderSkills(skills = {}) {
   const wrap = q('#skills .resume-section-content');
   if (!wrap) return;
 
-  const toBadgeRow = arr => arr?.length
-    ? `<ul class="list-inline dev-icons">${arr.map(s => `<li class="list-inline-item"><span class="badge bg-secondary">${escapeHTML(s.name || s)}</span></li>`).join('')}</ul>`
-    : '';
-
   const categoryBlocks = (skills.categories || []).map(cat => {
-    // If items have levels, also show a subtle progress bar
     const items = (cat.items || []).map(it => {
       const label = escapeHTML(it.name || '');
       if (typeof it.level === 'number') {
