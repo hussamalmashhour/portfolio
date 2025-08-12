@@ -257,10 +257,16 @@ function renderAbout(about = {}) {
       .join('');
   }
 
-  // Optional: add download CV buttons under the social icons
+  // Remove any existing download buttons first
+  const existingDownloadButtons = q('#about .download-buttons-wrapper');
+  if (existingDownloadButtons) {
+    existingDownloadButtons.remove();
+  }
+
+  // Add download CV buttons under the social icons
   if (about.downloadables?.length) {
     const wrapper = document.createElement('div');
-    wrapper.className = 'mt-3';
+    wrapper.className = 'mt-3 download-buttons-wrapper'; // Added specific class
     wrapper.innerHTML = about.downloadables.map(d =>
       `<a class="btn btn-sm btn-outline-primary me-2" href="${escapeHTML(d.href)}" target="_blank" rel="noreferrer">${escapeHTML(d.label)}</a>`
     ).join('');
