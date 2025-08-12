@@ -284,5 +284,4 @@
       "description": "Diseño REST, autenticación, caché, testing y modelado de bases de datos.",
       "tags": ["laravel","api","mysql"]
     }
-  ]
-}
+  ]}
