@@ -1,8 +1,16 @@
 {
   "schemaVersion": "2.0.0",
+  "generatedAt": "2025-08-12T20:00:00Z",
   "site": {
     "title": "Hussam Al Mashhour — Ingeniero de Software",
     "theme": "startbootstrap-resume",
+    "language": "es",
+    "featureFlags": {
+      "showAvatar": true,
+      "showDownloadCV": true,
+      "useBadgesForSkills": true,
+      "showProjectImages": true
+    },
     "sections": [
       { "id": "about", "title": "Sobre mí", "visible": true, "order": 1 },
       { "id": "experience", "title": "Experiencia", "visible": true, "order": 2 },
@@ -10,28 +18,271 @@
       { "id": "skills", "title": "Habilidades", "visible": true, "order": 4 },
       { "id": "education", "title": "Educación", "visible": true, "order": 5 },
       { "id": "certifications", "title": "Certificaciones", "visible": true, "order": 6 },
-      { "id": "volunteering", "title": "Voluntariado", "visible": true, "order": 7 }
+      { "id": "volunteering", "title": "Voluntariado", "visible": true, "order": 7 },
+      { "id": "awards", "title": "Premios", "visible": false, "order": 8 }
     ]
   },
+
   "about": {
     "name": { "first": "Hussam", "last": "Al Mashhour" },
     "headline": "Ingeniero de Software (Full‑Stack: Flutter • Laravel • Vue)",
-    "location": { "city": "Madrid", "country": "España" },
-    "summary": "Ingeniero full-stack enfocado en arquitectura limpia...",
+    "location": { "city": "Madrid", "country": "España", "remote": true, "onsite": true },
+    "avatar": "assets/img/profile.jpg",
+    "summary": "Ingeniero full-stack especializado en arquitectura limpia, capacidad de prueba y entrega eficiente de aplicaciones móviles y web. Experiencia con Flutter (BLoC/GetX), Laravel/Vue, APIs REST y Firebase.",
+    "availability": {
+      "status": "open_to_work",
+      "roles": ["Ingeniero Móvil", "Ingeniero Full-Stack"],
+      "employmentTypes": ["Tiempo completo", "Contrato", "Freelance"]
+    },
+    "contacts": [
+      {
+        "type": "email",
+        "label": "Email",
+        "value": "almashhourhussam@gmail.com",
+        "href": "mailto:almashhourhussam@gmail.com",
+        "icon": "fa-solid fa-envelope"
+      },
+      {
+        "type": "phone",
+        "label": "Teléfono",
+        "value": "+34 652 478 276",
+        "href": "tel:+34652478276",
+        "icon": "fa-solid fa-phone"
+      },
+      {
+        "type": "github",
+        "label": "GitHub",
+        "value": "samo999",
+        "href": "https://github.com/samo999",
+        "icon": "fab fa-github"
+      },
+      {
+        "type": "gitlab",
+        "label": "GitLab",
+        "value": "hussam_99",
+        "href": "https://gitlab.com/hussam_99",
+        "icon": "fab fa-gitlab"
+      },
+      {
+        "type": "linkedin",
+        "label": "LinkedIn",
+        "value": "hussam-mashhour",
+        "href": "https://www.linkedin.com/in/hussam-mashhour/",
+        "icon": "fab fa-linkedin"
+      }
+    ],
+    "downloadables": [
+      { "label": "Descargar CV (EN, PDF)", "href": "assets/cv/Hussam-Al-Mashhour-EN.pdf" },
+      { "label": "Descargar CV (ES, PDF)", "href": "assets/cv/Hussam-Al-Mashhour-ES.pdf" }
+    ],
     "languages": [
-      { "name": "Árabe", "level": "Nativo" },
-      { "name": "Inglés", "level": "C1" },
-      { "name": "Español", "level": "B2" }
+      { "name": "Árabe", "level": "Nativo", "iso": "ar" },
+      { "name": "Inglés", "level": "C1", "iso": "en" },
+      { "name": "Español", "level": "B2", "iso": "es" }
     ]
   },
+
+  "skills": {
+    "categories": [
+      {
+        "name": "Móvil",
+        "items": [
+          { "name": "Flutter", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["dart","mobile","ui"] },
+          { "name": "Dart", "level": 5, "years": 3, "lastUsed": "2025" },
+          { "name": "BLoC", "level": 4, "years": 2, "lastUsed": "2025" },
+          { "name": "GetX", "level": 4, "years": 2, "lastUsed": "2024" }
+        ]
+      },
+      {
+        "name": "Backend",
+        "items": [
+          { "name": "Laravel", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["php","rest"] },
+          { "name": "Node.js", "level": 3, "years": 1, "lastUsed": "2024" },
+          { "name": "APIs REST", "level": 5, "years": 4, "lastUsed": "2025" },
+          { "name": "Firebase", "level": 4, "years": 2, "lastUsed": "2024" }
+        ]
+      },
+      {
+        "name": "Frontend",
+        "items": [
+          { "name": "Vue.js", "level": 4, "years": 2, "lastUsed": "2025" },
+          { "name": "JavaScript", "level": 4, "years": 4, "lastUsed": "2025" },
+          { "name": "Bootstrap", "level": 5, "years": 4, "lastUsed": "2025" }
+        ]
+      },
+      {
+        "name": "Bases de Datos",
+        "items": [
+          { "name": "MySQL", "level": 4, "years": 3, "lastUsed": "2025" },
+          { "name": "MongoDB", "level": 3, "years": 1, "lastUsed": "2024" }
+        ]
+      },
+      {
+        "name": "Prácticas",
+        "items": [
+          { "name": "Arquitectura Limpia", "level": 5 },
+          { "name": "TDD", "level": 3 },
+          { "name": "POO", "level": 5 },
+          { "name": "Agile/Scrum", "level": 4 }
+        ]
+      },
+      {
+        "name": "Herramientas",
+        "items": [
+          { "name": "Git", "level": 5 },
+          { "name": "Docker", "level": 3 },
+          { "name": "JIRA", "level": 4 },
+          { "name": "Figma", "level": 4 },
+          { "name": "Postman", "level": 5 }
+        ]
+      }
+    ]
+  },
+
   "experience": [
     {
+      "id": "yes-mobile-dev",
       "role": "Desarrollador de Aplicaciones Móviles",
       "company": "YES, para servicios en línea",
-      "summary": "Construí y mantuve aplicaciones Flutter en producción...",
+      "location": "Homs, Siria",
+      "employment": { "type": "Híbrido", "start": "2023-07", "end": "2024-08" },
+      "summary": "Desarrollé y mantuve aplicaciones Flutter en producción; optimicé el rendimiento e integré REST/Firebase.",
+      "stack": ["Flutter","Dart","BLoC","GetX","Firebase","REST"],
       "highlights": [
-        "Reduje el tiempo de carga en un 30% mediante optimización de Firebase."
-      ]
+        "Reduje el tiempo de carga en un **30%** mediante optimización de Firebase.",
+        "Entregué **3+** aplicaciones Flutter en producción con gestión de estado (BLoC/GetX).",
+        "Implementé UX a partir de prototipos Figma y coordiné lanzamientos con control de versiones."
+      ],
+      "links": [],
+      "tags": ["mobile","flutter","performance"]
+    },
+    {
+      "id": "batec-ict",
+      "role": "Ingeniero TIC Junior",
+      "company": "BATEC (Compañía Regional de Paneles de Yeso BEAM)",
+      "location": "Homs, Siria",
+      "employment": { "type": "Presencial", "start": "2023-09", "end": "2024-03" },
+      "summary": "Soporte IT y seguridad; automatización para seguimiento de activos; resolución de incidentes basada en SLA.",
+      "stack": ["Python","Redes","Administración Windows"],
+      "highlights": [
+        "Resolví **95%** de incidentes críticos dentro del SLA.",
+        "Reduje vulnerabilidades del sistema en un **40%** mediante políticas de seguridad.",
+        "Automaticé el seguimiento de inventario de hardware con Python."
+      ],
+      "links": [],
+      "tags": ["it","security","automation"]
+    }
+  ],
+
+  "projects": [
+    {
+      "id": "famous-production",
+      "name": "Famous Production",
+      "subtitle": "Gestión de Tareas Multiplataforma",
+      "dates": "2025-06 – Actual",
+      "role": "Ingeniero Full-Stack",
+      "summary": "Web con Laravel/Vue y aplicación móvil Flutter consumiendo APIs REST compartidas para flujos de autenticación/datos consistentes.",
+      "outcomes": [
+        "Establecí una arquitectura REST escalable para expansión multiplataforma.",
+        "Unifiqué la autenticación entre móvil/web con estrategia de tokens."
+      ],
+      "stack": ["Laravel","Vue.js","Flutter","REST","MySQL"],
+      "links": [],
+      "media": [],
+      "tags": ["fullstack","architecture"]
+    },
+    {
+      "id": "id-book",
+      "name": "ID‑BOOK",
+      "subtitle": "Aplicación Móvil",
+      "dates": "2023-07 – 2024-08",
+      "role": "Ingeniero Móvil",
+      "summary": "Aplicación Flutter con búsqueda impulsada por IA, módulos de anuncios e integración con Firebase.",
+      "outcomes": ["Mejoré el rendimiento de la aplicación en un **40%** tras pruebas/optimización."],
+      "stack": ["Flutter","Dart","Firebase","GetX"],
+      "links": [{ "label": "Repositorio", "href": "https://gitlab.com/hussam_99/id-book" }],
+      "media": [],
+      "tags": ["flutter","firebase","mobile"]
+    },
+    {
+      "id": "clean-arch-posts",
+      "name": "App de Publicaciones con Arquitectura Limpia",
+      "subtitle": "Proyecto Personal",
+      "dates": "2024-03",
+      "role": "Ingeniero Móvil",
+      "summary": "Aplicación Flutter testeable con BLoC y capas modulares; APIs simuladas para iteración rápida.",
+      "outcomes": ["Mejoré la modularidad y mantenibilidad mediante estratificación estricta."],
+      "stack": ["Flutter","BLoC","MockAPI"],
+      "links": [{ "label": "Repositorio", "href": "https://gitlab.com/hussam_99/posts-app-flutter-bloc" }],
+      "tags": ["clean-architecture","bloc"]
+    },
+    {
+      "id": "darrebni",
+      "name": "Sistema de Gestión Darrebni",
+      "subtitle": "Backend",
+      "dates": "2023-12 – 2024-02",
+      "role": "Ingeniero Backend",
+      "summary": "Backend con Laravel que incluye lógica de negocio, APIs REST y modelos MySQL para cliente empresarial.",
+      "outcomes": ["Entregué una superficie de API mantenible alineada con los objetivos de las partes interesadas."],
+      "stack": ["Laravel","PHP","MySQL","REST"],
+      "links": [{ "label": "Repositorio", "href": "https://gitlab.com/hussam_99/darrebni-management-system" }],
+      "tags": ["laravel","backend"]
+    }
+  ],
+
+  "education": [
+    {
+      "degree": "M.Sc. Ingeniería Informática",
+      "school": "Universidad de Salamanca",
+      "location": "España",
+      "start": "2024",
+      "end": "Actual",
+      "courses": [],
+      "thesis": null
+    },
+    {
+      "degree": "B.Sc. Ingeniería de Software y Sistemas de Información",
+      "school": "Universidad Al‑Baath",
+      "location": "Siria",
+      "start": "2018",
+      "end": "2023",
+      "courses": ["Ingeniería de Software", "Sistemas de Información"],
+      "thesis": null
+    }
+  ],
+
+  "certifications": [
+    { "name": "Formación en Desarrollo Laravel", "issuer": "Compañía Darebin", "start": "2023-08", "end": "2024-02" },
+    { "name": "Inglés C1", "issuer": "HDISC, Homs", "start": "2023-03", "end": "2024-07" },
+    { "name": "Mantenimiento de Computadoras", "issuer": "GOPA DRED & UNFPA", "start": "2022-02", "end": "2022-03" }
+  ],
+
+  "volunteering": [
+    {
+      "title": "Líder de Equipo Senior",
+      "org": "Patriarcado de Antioquía para Cristianos Ortodoxos Griegos, Homs",
+      "dates": "2014 – 2023-03",
+      "summary": "Coordiné eventos grandes, mentoricé voluntarios y colaboré con equipos de medios/diseño.",
+      "highlights": [
+        "Coordine **50+** equipos para eventos con **1000+** asistentes.",
+        "Construí sitios web/aplicaciones móviles con equipos técnicos; lideré estrategia en redes sociales."
+      ],
+      "links": []
+    }
+  ],
+
+  "testimonials": [],
+  "clients": [],
+  "services": [
+    {
+      "name": "Desarrollo de Apps con Flutter",
+      "description": "Desarrollo completo para Android/iOS con CI/CD y mejores prácticas en gestión de estado.",
+      "tags": ["flutter","mobile","ci-cd"]
+    },
+    {
+      "name": "Backends Laravel & APIs",
+      "description": "Diseño REST, autenticación, caché, testing y modelado de bases de datos.",
+      "tags": ["laravel","api","mysql"]
     }
   ]
 }
