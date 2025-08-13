@@ -25,19 +25,19 @@
 
   "about": {
     "name": { "first": "Hussam", "last": "Al Mashhour" },
-    "headline": "Ingeniero de Software (Full‑Stack: Flutter • Laravel • Vue)",
+    "headline": "Ingeniero de Software Full-Stack & Mobile | Flutter • Laravel • Vue",
     "location": { "city": "Madrid", "country": "España", "remote": true, "onsite": true },
     "avatar": "assets/img/profile.jpg",
-    "summary": "Ingeniero full-stack especializado en arquitectura limpia, capacidad de prueba y entrega eficiente de aplicaciones móviles y web. Experiencia con Flutter (BLoC/GetX), Laravel/Vue, APIs REST y Firebase.",
+    "summary": "Ingeniero de software full-stack con experiencia demostrada en el desarrollo de aplicaciones móviles y web de alta calidad desde el concepto hasta el despliegue. Especializado en Flutter (BLoC/GetX), Laravel y Vue.js, con experiencia en diseño de APIs REST escalables, arquitectura de código limpio y mantenible, e integración de servicios cloud modernos como Firebase. Experto en conectar diseños UI/UX elegantes con lógica backend robusta, apasionado por crear soluciones performantes, seguras y centradas en el usuario. Habilidades en metodologías ágiles, colaboración multifuncional y entrega de proyectos bajo plazos ajustados manteniendo calidad de código y cobertura de tests.",
     "availability": {
-      "status": "open_to_work",
-      "roles": ["Ingeniero Móvil", "Ingeniero Full-Stack"],
+      "status": "abierto_a_oportunidades",
+      "roles": ["Ingeniero Mobile", "Ingeniero Full-Stack"],
       "employmentTypes": ["Tiempo completo", "Contrato", "Freelance"]
     },
     "contacts": [
       {
         "type": "email",
-        "label": "Email",
+        "label": "Correo",
         "value": "almashhourhussam@gmail.com",
         "href": "mailto:almashhourhussam@gmail.com",
         "icon": "fa-solid fa-envelope"
@@ -72,42 +72,49 @@
       }
     ],
     "downloadables": [
-      { "label": "Descargar CV (EN, PDF)", "href": "assets/cv/Hussam-Al-Mashhour-EN.pdf" },
-      { "label": "Descargar CV (ES, PDF)", "href": "assets/cv/Hussam-Al-Mashhour-ES.pdf" }
+      { "label": "Descargar CV (PDF)", "href": "assets/cv/Hussam-AlMashhour-Resume.pdf" }
     ],
     "languages": [
       { "name": "Árabe", "level": "Nativo", "iso": "ar" },
       { "name": "Inglés", "level": "C1", "iso": "en" },
-      { "name": "Español", "level": "B2", "iso": "es" }
+      { "name": "Español", "level": "B2", "iso": "es" },
+      { "name": "Francés", "level": "A1", "iso": "fr" }
     ]
   },
 
   "skills": {
     "categories": [
       {
-        "name": "Móvil",
+        "name": "Mobile",
         "items": [
-          { "name": "Flutter", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["dart","mobile","ui"] },
+          { "name": "Flutter", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["dart","mobile","cross-platform","state-management"] },
           { "name": "Dart", "level": 5, "years": 3, "lastUsed": "2025" },
           { "name": "BLoC", "level": 4, "years": 2, "lastUsed": "2025" },
-          { "name": "GetX", "level": 4, "years": 2, "lastUsed": "2024" }
+          { "name": "GetX", "level": 4, "years": 2, "lastUsed": "2024" },
+          { "name": "Firebase Cloud Messaging", "level": 4, "years": 2, "lastUsed": "2024" },
+          { "name": "Google Maps API", "level": 4, "years": 2, "lastUsed": "2024" }
         ]
       },
       {
         "name": "Backend",
         "items": [
-          { "name": "Laravel", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["php","rest"] },
-          { "name": "Node.js", "level": 3, "years": 1, "lastUsed": "2024" },
-          { "name": "APIs REST", "level": 5, "years": 4, "lastUsed": "2025" },
+          { "name": "Laravel", "level": 5, "years": 3, "lastUsed": "2025", "tags": ["php","rest","mvc","eloquent"] },
+          { "name": "Node.js", "level": 4, "years": 2, "lastUsed": "2025", "tags": ["javascript","api","socket.io"] },
+          { "name": "Java", "level": 4, "years": 2, "lastUsed": "2025" },
+          { "name": "Spring Boot", "level": 4, "years": 2, "lastUsed": "2025" },
+          { "name": "REST APIs", "level": 5, "years": 4, "lastUsed": "2025" },
+          { "name": "Socket.io", "level": 3, "years": 1, "lastUsed": "2024" },
           { "name": "Firebase", "level": 4, "years": 2, "lastUsed": "2024" }
         ]
       },
       {
         "name": "Frontend",
         "items": [
+          { "name": "JavaScript (ES6+)", "level": 4, "years": 4, "lastUsed": "2025" },
           { "name": "Vue.js", "level": 4, "years": 2, "lastUsed": "2025" },
-          { "name": "JavaScript", "level": 4, "years": 4, "lastUsed": "2025" },
-          { "name": "Bootstrap", "level": 5, "years": 4, "lastUsed": "2025" }
+          { "name": "Bootstrap", "level": 5, "years": 4, "lastUsed": "2025" },
+          { "name": "jQuery", "level": 4, "years": 4, "lastUsed": "2025" },
+          { "name": "Tailwind CSS", "level": 4, "years": 2, "lastUsed": "2025" }
         ]
       },
       {
@@ -120,20 +127,27 @@
       {
         "name": "Prácticas",
         "items": [
-          { "name": "Arquitectura Limpia", "level": 5 },
-          { "name": "TDD", "level": 3 },
-          { "name": "POO", "level": 5 },
+          { "name": "Clean Code", "level": 5 },
+          { "name": "OOP", "level": 5 },
+          { "name": "MVC", "level": 5 },
+          { "name": "Feature Driven Architecture", "level": 4 },
+          { "name": "UI Engineering", "level": 4 },
           { "name": "Agile/Scrum", "level": 4 }
         ]
       },
       {
-        "name": "Herramientas",
+        "name": "Herramientas & Metodologías",
         "items": [
           { "name": "Git", "level": 5 },
-          { "name": "Docker", "level": 3 },
           { "name": "JIRA", "level": 4 },
+          { "name": "Slack", "level": 4 },
+          { "name": "UML", "level": 4 },
+          { "name": "Adobe XD", "level": 4 },
           { "name": "Figma", "level": 4 },
-          { "name": "Postman", "level": 5 }
+          { "name": "Linux (Básico)", "level": 3 },
+          { "name": "Postman", "level": 5 },
+          { "name": "Composer", "level": 5 },
+          { "name": "NPM", "level": 5 }
         ]
       }
     ]
@@ -143,40 +157,40 @@
     {
       "id": "yes-mobile-dev",
       "role": "Desarrollador de Aplicaciones Móviles",
-      "company": "YES, para servicios en línea",
+      "company": "YES, for Online Services",
       "location": "Homs, Siria",
       "employment": { "type": "Híbrido", "start": "2023-07", "end": "2024-08" },
-      "summary": "Desarrollé y mantuve aplicaciones Flutter en producción; optimicé el rendimiento e integré REST/Firebase.",
-      "stack": ["Flutter","Dart","BLoC","GetX","Firebase","REST"],
+      "summary": "Diseñé, desarrollé y mantuve aplicaciones móviles multiplataforma usando Flutter y Dart, entregando soluciones robustas y de alto rendimiento con interfaces intuitivas e integraciones backend fluidas. Enfoque en optimización de rendimiento, implementación de patrones de gestión de estado (GetX/BLoC) y garantía de experiencia de usuario fluida mediante testing riguroso e iteración.",
+      "stack": ["Flutter", "Dart", "BLoC", "GetX", "Firebase", "REST API", "Figma"],
       "highlights": [
-        "Reduje el tiempo de carga en un **30%** mediante optimización de Firebase.",
-        "Entregué **3+** aplicaciones Flutter en producción con gestión de estado (BLoC/GetX).",
-        "Implementé UX a partir de prototipos Figma y coordiné lanzamientos con control de versiones."
+        "Entregué 3+ apps móvles en producción, implementando interfaces responsivas desde prototipos Figma y asegurando consistencia entre dispositivos.",
+        "Reduje tiempo de carga en 30% mediante optimización de consultas Firebase y estrategias de caching.",
+        "Integré APIs RESTful y servicios Firebase, permitiendo sincronización de datos en tiempo real y autenticación segura.",
+        "Implementé soluciones de gestión de estado (BLoC y GetX) para comportamiento predecible, mantenible y escalable.",
+        "Colaboré con equipos multifuncionales en gestionar releases, control de versiones y mejora de UX mediante testing con usuarios."
       ],
-      "links": [
-        { "label": "Sitio de la Empresa", "href": "https://example.com/yes-company" },
-        { "label": "Notas de Versión", "href": "https://example.com/yes-mobile/release-notes" }
-      ],
-      "tags": ["mobile","flutter","performance"]
+      "links": [],
+      "tags": ["mobile", "flutter", "performance", "ui-ux", "firebase"]
     },
     {
       "id": "batec-ict",
-      "role": "Ingeniero TIC Junior",
-      "company": "BATEC (Compañía Regional de Paneles de Yeso BEAM)",
+      "role": "Ingeniero ICT Junior",
+      "company": "BATEC (BEAM Regional Gypsum Board Company)",
       "location": "Homs, Siria",
       "employment": { "type": "Presencial", "start": "2023-09", "end": "2024-03" },
-      "summary": "Soporte IT y seguridad; automatización para seguimiento de activos; resolución de incidentes basada en SLA.",
-      "stack": ["Python","Redes","Administración Windows"],
+      "summary": "Brindé soporte IT integral, troubleshooting de red y seguridad de sistemas para operaciones empresariales. Garanticé cumplimiento de SLAs, fortalecí políticas IT y automatizé procesos de gestión de activos para mejorar eficiencia operativa.",
+      "stack": ["Python", "Networking", "Windows Administration", "IT Security"],
       "highlights": [
-        "Resolví **95%** de incidentes críticos dentro del SLA.",
-        "Reduje vulnerabilidades del sistema en un **40%** mediante políticas de seguridad.",
-        "Automaticé el seguimiento de inventario de hardware con Python."
+        "Resolví 95% de incidentes de alta prioridad dentro del SLA, minimizando downtime y manteniendo fiabilidad del servicio.",
+        "Reduje vulnerabilidades del sistema en 40% mediante políticas de seguridad y auditorías regulares.",
+        "Automaticé seguimiento de activos hardware/software con scripts Python, mejorando precisión de inventario.",
+        "Brindé soporte técnico rápido y documentación clara a usuarios finales, mejorando satisfacción con servicios IT.",
+        "Colaboré con liderazgo IT para mantener confidencialidad, cumplimiento y operaciones diarias fluidas."
       ],
       "links": [
-        { "label": "Sitio de la Empresa", "href": "https://example.com/batec" },
-        { "label": "Script de Automatización", "href": "https://example.com/gist/automation" }
+        { "label": "Sitio Web", "href": "https://example.com/batec" }
       ],
-      "tags": ["it","security","automation"]
+      "tags": ["it", "security", "automation", "asset-management", "sla-compliance"]
     }
   ],
 
@@ -185,52 +199,127 @@
       "id": "famous-production",
       "name": "Famous Production",
       "subtitle": "Gestión de Tareas Multiplataforma",
-      "dates": "2025-06 – Actual",
+      "dates": "2025-06 – Presente",
       "role": "Ingeniero Full-Stack",
-      "summary": "Web con Laravel/Vue y aplicación móvil Flutter consumiendo APIs REST compartidas para flujos de autenticación/datos consistentes.",
+      "summary": "Plataforma empresarial con IA para una compañía fotográfica en Líbano, construida como ecosistema unificado para gestionar servicios, reservas, contenido multimedia, engagement con clientes y flujos internos. Sistema diseñado como solución multiplataforma con backend Laravel 12 (API REST segura y escalable), frontend web Vue 3 + Tailwind CSS, y futura app móvil Flutter. Módulos incluyen autenticación (Laravel Sanctum), gestión de posts/fotos con tags/likes/comentarios, listado de servicios con reservas, reseñas con ratings precisos, sistema completo de tickets con adjuntos, y FAQs polimórficas. Microservicio de IA (Flask + Hugging Face Transformers) realiza análisis de sentimiento multilingüe en reseñas. Futuras expansiones incluyen tagging automático de imágenes, motores de recomendación y moderación de contenido con IA. Arquitectura prioriza modularidad, escalabilidad y mantenibilidad.",
       "outcomes": [
-        "Establecí una arquitectura REST escalable para expansión multiplataforma.",
-        "Unifiqué la autenticación entre móvil/web con estrategia de tokens."
+        "Diseñé y desplegué arquitectura REST API escalable permitiendo integración fluida entre web, móvil y microservicios de IA.",
+        "Unifiqué autenticación para todas las plataformas usando tokens Laravel Sanctum, con control de acceso por roles.",
+        "Implementé módulos críticos: gestión de posts/media, galerías interactivas, flujos de reserva, reseñas con rating, tickets de soporte y FAQs polimórficas.",
+        "Integré microservicio de IA para análisis de sentimiento en tiempo real y multilingüe de reseñas.",
+        "Establecí sistema polimórfico para adjuntos unificados en tickets, posts y servicios.",
+        "Arquitectura planeada para app móvil Flutter usando Clean Architecture + BLoC, aprovechando la API REST compartida.",
+        "Roadmap futuro: pasarelas de pago, capacidades de IA expandidas, flujo móvil offline-first y dashboards analíticos."
       ],
-      "stack": ["Laravel","Vue.js","Flutter","REST","MySQL"],
-      "links": [
-        { "label": "Repo (Web)", "href": "https://example.com/repo/famous-web" },
-        { "label": "Repo (Móvil)", "href": "https://example.com/repo/famous-mobile" },
-        { "label": "Demo", "href": "https://example.com/demo/famous" }
+      "stack": [
+        "Laravel 12",
+        "PHP 8.2",
+        "Vue 3",
+        "Vite",
+        "Tailwind CSS 4",
+        "Pinia",
+        "Flutter",
+        "Dart",
+        "MySQL",
+        "REST API",
+        "Laravel Sanctum",
+        "Filament 3",
+        "Flask",
+        "Python 3.10",
+        "Hugging Face Transformers",
+        "PyTorch",
+        "Pydantic",
+        "Axios",
+        "Docker (planeado)",
+        "Firebase (planeado para móvil)"
       ],
       "media": [],
-      "tags": ["fullstack","architecture"]
+      "tags": ["fullstack", "architecture", "ai", "machine-learning", "mobile"]
     },
     {
       "id": "id-book",
-      "name": "ID‑BOOK",
+      "name": "ID-BOOK",
       "subtitle": "Aplicación Móvil",
       "dates": "2023-07 – 2024-08",
-      "role": "Ingeniero Móvil",
-      "summary": "Aplicación Flutter con búsqueda impulsada por IA, módulos de anuncios e integración con Firebase.",
-      "outcomes": ["Mejoré el rendimiento de la aplicación en un **40%** tras pruebas/optimización."],
-      "stack": ["Flutter","Dart","Firebase","GetX"],
+      "role": "Ingeniero Mobile",
+      "summary": "App Flutter a gran escala para usuarios árabes e hispanohablantes, combinando directorio empresarial, feed social (Orbit), centro de anuncios, búsqueda avanzada, pagos, notificaciones y centro de ayuda. Usa GetX para routing y state management, Firebase para mensajería y Google Maps para features basados en ubicación. Soporta deep linking, localización árabe/inglés, diseño responsive y funcionamiento offline-aware.",
+      "outcomes": [
+        "Mejoré rendimiento en 40% mediante optimización y testing.",
+        "Arquitectura modular (idbook, orbit, ads_center, join_us, core, main_core) para escalabilidad.",
+        "Módulo completo de negocios: añadir/actualizar/eliminar, subida de logos, tags/categorías, transferencia de propiedad, reservas, verificación OTP, horarios y galerías.",
+        "Búsqueda avanzada con filtros (ubicación, fecha, precio), vistas galería/grid y ubicaciones guardadas.",
+        "Integración de pagos con MTN y Syriatel, facturas y gestión de planes.",
+        "Feed social Orbit con posts, stories, reacciones y banners.",
+        "Centro de anuncios con segmentación de audiencia (edad, ubicación) y estructuras multi-paso.",
+        "Ciclo completo de notificaciones: inicio, recepción, envío, sincronización y configuración por usuario.",
+        "Centro de ayuda con FAQ, categorías y videos; módulo de Settings completo con cambio de idioma.",
+        "Integración Google Maps con Android Hybrid Composition; deep linking a detalles de lugares.",
+        "Firebase Crashlytics para tracking de errores; mensajería en background y push notifications.",
+        "Traducciones árabe/inglés con GetX Translations, soporte RTL para árabe.",
+        "Librería de widgets reutilizables: filtros, grids, buscadores, galerías y selectores geográficos."
+      ],
+      "stack": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "GetX",
+        "Google Maps",
+        "Hive",
+        "Flutter Secure Storage",
+        "Connectivity Plus",
+        "Socket.IO",
+        "Shimmer",
+        "Lottie",
+        "Syncfusion Charts"
+      ],
       "links": [
-        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/id-book" },
-        { "label": "Play Store (Vista previa)", "href": "https://example.com/store/id-book" }
+        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/id-book" }
       ],
       "media": [],
-      "tags": ["flutter","firebase","mobile"]
+      "tags": [
+        "flutter",
+        "firebase",
+        "mobile",
+        "maps",
+        "localization",
+        "ads",
+        "payments",
+        "notifications",
+        "social",
+        "business-directory"
+      ]
     },
     {
       "id": "clean-arch-posts",
-      "name": "App de Publicaciones con Arquitectura Limpia",
+      "name": "Clean Architecture Posts App",
       "subtitle": "Proyecto Personal",
       "dates": "2024-03",
-      "role": "Ingeniero Móvil",
-      "summary": "Aplicación Flutter testeable con BLoC y capas modulares; APIs simuladas para iteración rápida.",
-      "outcomes": ["Mejoré la modularidad y mantenibilidad mediante estratificación estricta."],
-      "stack": ["Flutter","BLoC","MockAPI"],
-      "links": [
-        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/posts-app-flutter-bloc" },
-        { "label": "Notas de Arquitectura", "href": "https://example.com/docs/clean-arch-posts" }
+      "role": "Ingeniero Mobile",
+      "summary": "Aplicación Flutter implementando Clean Architecture con BLoC para state management, ofreciendo operaciones CRUD completas sobre posts, caching offline con SharedPreferences, y awareness de red. El proyecto sigue estructura modular estricta (Domain, Data, Presentation) e integra con JSONPlaceholder REST API.",
+      "outcomes": [
+        "Arquitectura modular con separación clara de responsabilidades para mantenimiento a largo plazo.",
+        "Integración de fuentes de datos remotas (HTTP) y locales (SharedPreferences) con capacidades offline-first.",
+        "Manejo robusto de errores con excepciones personalizadas, mensajes de error amigables y flujos de reintento.",
+        "Patrón Repository con inyección de dependencias (get_it) para escalabilidad y testabilidad.",
+        "Experiencia de usuario mejorada con awareness offline y carga instantánea de datos cacheados."
       ],
-      "tags": ["clean-architecture","bloc"]
+      "stack": [
+        "Flutter",
+        "Dart",
+        "BLoC",
+        "Clean Architecture",
+        "SharedPreferences",
+        "GetIt",
+        "HTTP",
+        "Dartz",
+        "Equatable",
+        "InternetConnectionChecker",
+        "JSONPlaceholder API"
+      ],
+      "links": [
+        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/posts-app-flutter-bloc" }
+      ],
+      "tags": ["flutter", "bloc", "clean-architecture", "mobile", "offline-first", "rest-api"]
     },
     {
       "id": "darrebni",
@@ -238,14 +327,136 @@
       "subtitle": "Backend",
       "dates": "2023-12 – 2024-02",
       "role": "Ingeniero Backend",
-      "summary": "Backend con Laravel que incluye lógica de negocio, APIs REST y modelos MySQL para cliente empresarial.",
-      "outcomes": ["Entregué una superficie de API mantenible alineada con los objetivos de las partes interesadas."],
-      "stack": ["Laravel","PHP","MySQL","REST"],
-      "links": [
-        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/darrebni-management-system" },
-        { "label": "Docs de API", "href": "https://example.com/docs/darrebni-api" }
+      "summary": "Desarrollé un backend Laravel 10 funcionando como API REST segura (para clientes móvil/SPA) y admin web con Blade. El sistema gestiona productos, categorías y tags, con autenticación basada en tokens (Laravel Sanctum), workflows event-driven con jobs en cola, notificaciones por mail y soporte multilingüe. Features incluyen API Resources estructurados, traits de respuesta reutilizables y seeding robusto para entornos locales/staging.",
+      "outcomes": [
+        "Diseñé e implementé API REST con agrupamiento claro de rutas y naming consistente para productos, categorías y tags.",
+        "Integré Laravel Sanctum para autenticación basada en tokens, protegiendo rutas sensibles.",
+        "Workflow de creación de productos con event dispatching, jobs en cola y notificaciones con archivos adjuntos.",
+        "API Resources para estandarizar JSON output y ApiResponseTrait para formato unificado de respuestas.",
+        "Sistema bilingüe (árabe/inglés) con switch en runtime, mensajes de validación localizados y páginas demo.",
+        "Factories y seeders para bootstrap de entornos development/staging con datos de prueba realistas.",
+        "Configuración de arquitectura con queue workers (listo para Redis) para procesamiento asíncrono en producción.",
+        "Codebase mantenible y extensible con separación clara entre capas web y API."
       ],
-      "tags": ["laravel","backend"]
+      "stack": [
+        "Laravel 10",
+        "PHP 8.1+",
+        "MySQL",
+        "REST API",
+        "Laravel Sanctum",
+        "Redis / Queues",
+        "Blade",
+        "Laravel Notifications",
+        "Laravel Mailables",
+        "Localization (i18n)"
+      ],
+      "links": [
+        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/darrebni-management-system" }
+      ],
+      "tags": [
+        "laravel",
+        "backend",
+        "sanctum",
+        "api",
+        "i18n",
+        "redis",
+        "queues",
+        "notifications",
+        "mail"
+      ]
+    },
+    {
+      "id": "movies-recommender",
+      "name": "Movies Recommender",
+      "subtitle": "Sistema de Recomendación Personalizado",
+      "dates": "2021-05 – 2021-08",
+      "role": "Desarrollador de Data Science & Machine Learning",
+      "summary": "Sistema de recomendación de películas usando técnicas de association rule mining en Knime. Utilicé el algoritmo Apriori para analizar datasets de películas, extrayendo patrones de visualización frecuentes y generando sugerencias personalizadas basadas en historial de usuario. Énfasis en principios de AI explicable, permitiendo trazar recomendaciones a reglas subyacentes.",
+      "outcomes": [
+        "Workflow de recomendación en Knime usando Apriori para association rule mining.",
+        "Procesé y analicé dataset grande de películas para descubrir correlaciones entre visualizaciones.",
+        "Generé sugerencias personalizadas basadas en itemsets frecuentes y métricas de confianza.",
+        "Validé precisión mediante test datasets y ajuste iterativo de parámetros del algoritmo."
+      ],
+      "stack": [
+        "Python 3",
+        "Knime",
+        "Apriori Algorithm",
+        "Pandas",
+        "NumPy",
+        "Data Mining",
+        "Association Rule Mining"
+      ],
+      "media": [],
+      "tags": ["machine-learning", "data-mining", "recommendation-system", "python"]
+    },
+    {
+      "id": "shopping-cart-nodejs",
+      "name": "Shopping Cart Node.js",
+      "subtitle": "Aplicación Web E-Commerce Full-Stack",
+      "role": "Desarrollador Full-Stack JavaScript",
+      "summary": "Carrito de compras listo para producción construido con Node.js y Express, con flujo completo e-commerce desde navegación de productos hasta checkout seguro. Usa MongoDB con Mongoose para almacenamiento persistente de productos, usuarios, órdenes y sesiones de carrito. Server-side rendering con templates EJS provee interfaz responsive y SEO-friendly. Autenticación de usuarios y manejo de sesiones permiten carritos personalizados e historial de órdenes, mientras que estructura MVC y diseño modular de rutas/controladores facilitan escalabilidad.",
+      "outcomes": [
+        "Arquitectura MVC modular con Express.js, separando claramente rutas, controladores, modelos y vistas.",
+        "Diseño de schemas MongoDB vía Mongoose para productos, usuarios, órdenes y sesiones de carrito con referencias relacionales.",
+        "Autenticación segura de usuarios, almacenamiento de sesiones y autorización para flujos de carrito/órdenes.",
+        "Templates EJS dinámicos para listados de productos, vistas de carrito y checkout, con estilos responsive en Bootstrap.",
+        "Middleware para validación de inputs, error handling y flash messaging para mejorar UX e integridad del sistema.",
+        "Rutas RESTful para navegación de productos, manipulación de carrito y checkout, asegurando endpoints predecibles.",
+        "Preparación para integración con proveedores de pago (Stripe/PayPal) mediante lógica de checkout extensible.",
+        "Configuración de variables de entorno via `.env` para URIs de base de datos, secrets de sesión y puertos."
+      ],
+      "stack": [
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Mongoose",
+        "EJS",
+        "Express-Session",
+        "Connect-Flash",
+        "Bootstrap 4",
+        "JavaScript (ES6)",
+        "HTML5",
+        "CSS3",
+        "dotenv",
+        "body-parser",
+        "bcrypt",
+        "method-override"
+      ],
+      "media": [],
+      "tags": ["fullstack", "ecommerce", "nodejs", "express", "mongodb", "mvc", "session-management", "server-side-rendering", "bootstrap"]
+    },
+    {
+      "id": "gender-seal-dashboard",
+      "name": "Gender Seal Dashboard — UNDP Canadá",
+      "subtitle": "Plataforma de Gestión y Monitoreo de Datos",
+      "dates": "REEMPLAZAR CON FECHAS CORRECTAS",
+      "role": "Ingeniero Full-Stack (Laravel/Filament)",
+      "summary": "Dashboard administrativo para la iniciativa Gender Seal de UNDP Canadá, construido con Laravel y Filament para gestionar, validar y monitorear datos estructurados del programa en Indicadores, Benchmarks, Áreas Clave, Tipos de Evidencia, Estados, Puntos Focales, Roles, Usuarios y Recursos compartidos. Filament Resources proveen workflows CRUD consistentes con Forms, Tables, Filters y Relation Managers; mientras que modelos Eloquent y policies aseguran integridad de datos, control de acceso y auditabilidad. La plataforma soporta tracking temporal via Timeline Slots, edición relacional entre entidades (ej: vincular Indicadores con Benchmarks/Áreas Clave) y navegación estandarizada en el admin.",
+      "outcomes": [
+        "Implementación CRUD completa con Filament Resources para entidades principales: Indicator, Benchmark, Key Area, Type of Evidence, Status, Focal Point, Role, User y Resource.",
+        "Flujos administrativos relacionales con Relation Managers para vincular Indicadores ↔ Benchmarks/Áreas Clave y asignar Puntos Focales y Roles.",
+        "Gestión de Timeline Slots para capturar checkpoints de progreso y contexto histórico.",
+        "Tablas Filament con columnas ordenables/buscables, Filters con scope (ej: estado/rol/tipo de evidencia) y bulk actions para agilizar operaciones.",
+        "Validación de datos en Forms, atributos fillable protegidos en Models y soft-delete handling para recuperación segura.",
+        "Autorización mediante policies y visibilidad basada en roles, alineada con prácticas de gobernanza de UNDP.",
+        "Grupos de navegación, íconos y labels estandarizados para UX coherente y onboarding rápido de staff."
+      ],
+      "stack": [
+        "Laravel",
+        "PHP 8.x",
+        "Filament 3 (Resources, Forms, Tables, Relation Managers)",
+        "Eloquent ORM",
+        "Policies / Authorization",
+        "MySQL or PostgreSQL",
+        "Blade (Filament UI)",
+        "Tailwind CSS",
+        "Alpine.js",
+        "Composer",
+        "PHPUnit"
+      ],
+      "media": [],
+      "tags": ["laravel", "filament", "admin-dashboard", "data-management", "monitoring", "undp", "gender-equality"]
     }
   ],
 
@@ -255,39 +466,34 @@
       "school": "Universidad de Salamanca",
       "location": "España",
       "start": "2024",
-      "end": "Actual",
+      "end": "Presente",
       "courses": [],
       "thesis": null,
       "links": [
-        { "label": "Página del Programa", "href": "https://example.com/usalamanca/msc-informatics" }
+        { "label": "Página del Programa", "href": "https://masterii.usal.es/" }
       ]
     },
     {
-      "degree": "B.Sc. Ingeniería de Software y Sistemas de Información",
+      "degree": "B.Sc. Ingeniería de Software & Sistemas de Información",
       "school": "Universidad Al‑Baath",
       "location": "Siria",
       "start": "2018",
       "end": "2023",
       "courses": ["Ingeniería de Software", "Sistemas de Información"],
       "thesis": null,
-      "links": [
-        { "label": "Página de la Facultad", "href": "https://example.com/albaath/software-engineering" }
-      ]
+      "links": []
     }
   ],
 
   "certifications": [
     {
       "name": "Formación en Desarrollo Laravel",
-      "issuer": "Compañía Darebin",
+      "issuer": "Darebin Company",
       "start": "2023-08",
       "end": "2024-02",
       "hours": null,
-      "description": "Formación práctica en desarrollo con Laravel: APIs REST, autenticación, Eloquent, testing y despliegues.",
-      "links": [
-        { "label": "Certificado", "href": "https://example.com/certificates/laravel-training" },
-        { "label": "Programa", "href": "https://example.com/syllabus/laravel" }
-      ]
+      "description": "Desarrollo práctico con Laravel: APIs REST, autenticación, Eloquent, testing y despliegues.",
+      "links": []
     },
     {
       "name": "Inglés C1",
@@ -295,10 +501,8 @@
       "start": "2023-03",
       "end": "2024-07",
       "hours": null,
-      "description": "Curso avanzado de inglés (nivel C1) enfocado en conversación, escritura y preparación de exámenes.",
-      "links": [
-        { "label": "Certificado", "href": "https://example.com/certificates/english-c1" }
-      ]
+      "description": "Curso avanzado de inglés (nivel C1) enfocado en speaking, writing y preparación de exámenes.",
+      "links": []
     },
     {
       "name": "Mantenimiento de Computadoras",
@@ -306,30 +510,58 @@
       "start": "2022-02",
       "end": "2022-03",
       "hours": null,
-      "description": "Mantenimiento y solución de problemas de computadoras: hardware, instalación de sistemas, diagnóstico y prevención.",
-      "links": [
-        { "label": "Detalles del Programa", "href": "https://example.com/programs/computer-maintenance" }
-      ]
+      "description": "Mantenimiento y troubleshooting de PCs: hardware, instalación de SO, diagnósticos y prevención.",
+      "links": []
     }
   ],
 
   "volunteering": [
     {
-      "title": "Líder de Equipo Senior",
-      "org": "Patriarcado de Antioquía para Cristianos Ortodoxos Griegos, Homs",
+      "title": "Líder Senior de Equipo",
+      "org": "Patriarcado de Antioquía – Oficina de Educación Religiosa, Homs",
+      "location": "Homs, Siria",
       "dates": "2014 – 2023-03",
-      "summary": "Coordiné eventos grandes, mentoricé voluntarios y colaboré con equipos de medios/diseño.",
+      "summary": "Lideré y mentoré equipos de voluntarios por casi una década, coordinando eventos a gran escala, fomentando engagement comunitario y contribuyendo a iniciativas de media y tecnología para la Oficina de Educación Religiosa. Actué como mentor, líder de actividades y contribuidor creativo, asegurando que eventos y programas fueran impactantes, bien organizados y visualmente atractivos.",
       "highlights": [
-        "Coordine **50+** equipos para eventos con **1000+** asistentes.",
-        "Construí sitios web/aplicaciones móviles con equipos técnicos; lideré estrategia en redes sociales."
+        "Coordiné 50+ equipos de voluntarios para eventos mayores, cada uno con 1000+ asistentes, asegurando ejecución fluida y satisfacción.",
+        "Planeé, dirigí y supervisé actividades promoviendo crecimiento espiritual, educativo y comunitario.",
+        "Mentoricé voluntarios y participantes, apoyando desarrollo personal y espiritual.",
+        "Diseñé y desarrollé websites y apps móviles en colaboración con equipos técnicos para mejorar alcance.",
+        "Creé contenido visual y materiales de branding como parte del equipo de media/design, mejorando engagement.",
+        "Colaboré con múltiples comités para asegurar planificación de eventos y comunicación efectiva."
       ],
-      "links": [
-        { "label": "Página de la Organización", "href": "https://example.com/volunteering/org" },
-        { "label": "Galería de Eventos", "href": "https://example.com/volunteering/gallery" }
-      ]
+      "links": [],
+      "tags": ["leadership", "event-management", "mentorship", "media", "community-engagement"]
+    },
+    {
+      "title": "Voluntario",
+      "org": "Servicio de Asuntos Sociales (SAS), Universidad de Salamanca",
+      "location": "Salamanca, España",
+      "dates": "2024-09 – Presente",
+      "summary": "Apoyo a iniciativas de servicio social dentro de la Universidad de Salamanca, contribuyendo a programas que fomentan bienestar comunitario, inclusión y salud estudiantil.",
+      "highlights": [
+        "Asistencia en planificación y coordinación de actividades de servicio social para estudiantes y comunidades locales.",
+        "Colaboración con staff universitario y voluntarios para entregar programas de outreach.",
+        "Promoción de conciencia sobre temas sociales y servicios de apoyo disponibles."
+      ],
+      "links": [],
+      "tags": ["social-services", "university", "community-support", "student-welfare"]
+    },
+    {
+      "title": "Voluntario",
+      "org": "Cruz Roja — Centro de Personas Mayores",
+      "location": "Salamanca, España",
+      "dates": "2024-07 – Presente",
+      "summary": "Apoyo continuo como voluntario en el Centro de Personas Mayores, mejorando calidad de vida mediante compañía, actividades y asistencia.",
+      "highlights": [
+        "Interacción con personas mayores mediante actividades sociales, recreativas y de bienestar.",
+        "Compañía y apoyo emocional para reducir aislamiento social en residentes mayores.",
+        "Asistencia al staff en organización de eventos y mantenimiento de ambiente acogedor."
+      ],
+      "links": [],
+      "tags": ["red-cross", "elderly-care", "community-service", "well-being"]
     }
   ],
-
   "testimonials": [],
   "clients": [],
   "services": [
