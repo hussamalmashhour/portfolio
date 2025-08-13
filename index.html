@@ -41,8 +41,23 @@
         </span>
       </a>
 
+      <!-- Mobile language switcher: always visible on small screens -->
+      <div class="ms-auto d-lg-none">
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-light dropdown-toggle"
+                  type="button" id="languageDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-language me-1"></i>
+            <span class="currentLanguage">English</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdownMobile">
+            <li><a class="dropdown-item language-option" href="#" data-lang="en">English</a></li>
+            <li><a class="dropdown-item language-option" href="#" data-lang="es">Español</a></li>
+          </ul>
+        </div>
+      </div>
+
       <button
-        class="navbar-toggler"
+        class="navbar-toggler ms-2"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarResponsive"
@@ -62,20 +77,20 @@
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Certifications &amp; Volunteering</a></li>
 
-          <!-- Language Switcher Dropdown -->
-          <li class="nav-item dropdown">
+          <!-- Desktop language switcher: visible in the sidebar on lg+ -->
+          <li class="nav-item dropdown d-none d-lg-block mt-3">
             <a
               class="nav-link dropdown-toggle"
               href="#"
-              id="languageDropdown"
+              id="languageDropdownDesktop"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i class="fas fa-language me-1"></i>
-              <span id="currentLanguage">English</span>
+              <span class="currentLanguage">English</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="languageDropdown" id="languageDropdownMenu">
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="languageDropdownDesktop">
               <li><a class="dropdown-item language-option" href="#" data-lang="en">English</a></li>
               <li><a class="dropdown-item language-option" href="#" data-lang="es">Español</a></li>
             </ul>
@@ -146,7 +161,7 @@
       </section>
     </div>
 
-    <!-- ===== Templates (moved INSIDE body, near the end) ===== -->
+    <!-- ===== Templates (inside body, near the end) ===== -->
 
     <!-- About -->
     <template id="tpl-about">

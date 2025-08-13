@@ -1,7 +1,7 @@
 /*!
  * Resume template with multi-language support
  * Loads either portfolio.en.json or portfolio.es.json
- * Now uses <template> cloning (no HTML strings in JS)
+ * Uses <template> cloning (no HTML strings in JS for structure)
  */
 
 // Current language and data
@@ -14,10 +14,15 @@ const languageConfig = {
   es: { file: './data/portfolio.es.json', name: 'Español' }
 };
 
+/* -------------------- boot -------------------- */
 window.addEventListener('DOMContentLoaded', async () => {
+  // Prevent double init if the script gets injected twice
+  if (window.__resume_inited__) return;
+  window.__resume_inited__ = true;
+
   // Initialize scrollspy and responsive navbar
   const sideNav = document.body.querySelector('#sideNav');
-  if (sideNav) {
+  if (sideNav && window.bootstrap?.ScrollSpy) {
     new bootstrap.ScrollSpy(document.body, {
       target: '#sideNav',
       rootMargin: '0px 0px -40%',
@@ -26,9 +31,11 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const navbarToggler = document.body.querySelector('.navbar-toggler');
   const responsiveNavItems = [].slice.call(document.querySelectorAll('#navbarResponsive .nav-link'));
-  responsiveNavItems.map((item) => {
+  responsiveNavItems.forEach((item) => {
     item.addEventListener('click', () => {
-      if (window.getComputedStyle(navbarToggler).display !== 'none') navbarToggler.click();
+      if (navbarToggler && window.getComputedStyle(navbarToggler).display !== 'none') {
+        navbarToggler.click();
+      }
     });
   });
 
@@ -37,17 +44,18 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   // Load data based on saved language preference or browser language
   const savedLanguage = localStorage.getItem('portfolioLanguage');
-  const browserLanguage = navigator.language.split('-')[0];
+  const browserLanguage = (navigator.language || 'en').split('-')[0];
   const defaultLanguage = Object.keys(languageConfig).includes(browserLanguage) ? browserLanguage : 'en';
   const initialLanguage = savedLanguage || defaultLanguage;
 
   await loadLanguageData(initialLanguage);
 });
 
+/* -------------------- language loading -------------------- */
 async function loadLanguageData(lang) {
   try {
     if (!languageConfig[lang]) throw new Error(`Language ${lang} not supported`);
-    const response = await fetch(languageConfig[lang].file);
+    const response = await fetch(languageConfig[lang].file, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     portfolioData = await response.json();
@@ -68,21 +76,29 @@ async function loadLanguageData(lang) {
 }
 
 function setupLanguageSwitcher() {
+  // Works for BOTH desktop and mobile dropdowns
   const languageOptions = qa('.language-option');
   languageOptions.forEach(option => {
     option.addEventListener('click', async (e) => {
       e.preventDefault();
-      const lang = e.target.getAttribute('data-lang');
-      if (lang !== currentLanguage) await loadLanguageData(lang);
+      const lang = e.currentTarget.getAttribute('data-lang');
+      if (lang && lang !== currentLanguage) {
+        await loadLanguageData(lang);
+      }
     });
   });
 }
 
 function updateLanguageSwitcher() {
-  const currentLangEl = q('#currentLanguage');
-  if (currentLangEl) currentLangEl.textContent = languageConfig[currentLanguage]?.name || 'English';
+  const name = languageConfig[currentLanguage]?.name || 'English';
+  // Support multiple labels (mobile + desktop)
+  qa('.currentLanguage').forEach(el => (el.textContent = name));
+  // Backward-compat if old id still exists
+  const single = q('#currentLanguage');
+  if (single) single.textContent = name;
 }
 
+/* -------------------- page render orchestration -------------------- */
 function renderAllContent() {
   if (!portfolioData) return;
 
@@ -129,7 +145,7 @@ function applySiteMeta(site = {}) {
 
 /** Hide sections marked visible:false in site.sections and reorder nav items */
 function applyVisibilityOrder(sections) {
-  const byId = Object.fromEntries(sections.map(s => [s.id, s]));
+  const byId = Object.fromEntries((sections || []).map(s => [s.id, s]));
   const idMap = {
     about: '#about',
     experience: '#experience',
@@ -150,6 +166,12 @@ function applyVisibilityOrder(sections) {
       const href = css.startsWith('#') ? css : '#' + css;
       const navItem = qa(`#navbarResponsive .nav-link[href="${href}"]`)[0];
       if (navItem) navItem.parentElement.style.display = 'none';
+    } else {
+      // ensure visible if previously hidden
+      el.style.display = '';
+      const href = css.startsWith('#') ? css : '#' + css;
+      const navItem = qa(`#navbarResponsive .nav-link[href="${href}"]`)[0];
+      if (navItem) navItem.parentElement.style.display = '';
     }
   });
 
@@ -159,7 +181,7 @@ function applyVisibilityOrder(sections) {
   const currentLis = qa('li.nav-item', navUl);
   const liByHref = new Map(currentLis.map(li => [li.querySelector('a')?.getAttribute('href'), li]));
 
-  const desiredOrder = sections
+  const desiredOrder = (sections || [])
     .filter(s => s.visible !== false)
     .sort((a, b) => (a.order || 0) - (b.order || 0))
     .map(s => liByHref.get(idMap[s.id] || `#${s.id}`))
@@ -174,7 +196,7 @@ function applyVisibilityOrder(sections) {
   });
 }
 
-/* ---------- template helpers (NEW) ---------- */
+/* ---------- template helpers ---------- */
 function $tpl(id) {
   const t = q(`#${id}`);
   if (!t || !t.content || !t.content.firstElementChild) {
@@ -236,6 +258,9 @@ function renderAbout(about = {}) {
     if (subEl) subEl.innerHTML = sub;
     if (summaryEl) summaryEl.textContent = about.summary || '';
     if (socialsEl) socialsEl.innerHTML = buildSocialsHTML(about.contacts || []);
+    // remove any old downloads wrapper before injecting (prevents duplicates)
+    const oldDl = q('#about .download-buttons-wrapper');
+    if (oldDl) oldDl.remove();
     injectDownloadsAfter(socialsEl, about.downloadables || []);
     return;
   }
@@ -259,13 +284,13 @@ function renderAbout(about = {}) {
     if (!dl.innerHTML) dl.remove();
   }
 
-  // replace about content
+  // replace about content (prevents duplicates on language switch)
   const content = host.querySelector('.resume-section-content');
   if (content) content.replaceWith(view);
 }
 
 function buildSocialsHTML(list) {
-  return list
+  return (list || [])
     .filter(c => ['github','gitlab','linkedin','twitter','x','facebook','website'].includes(c.type))
     .map(c => {
       const icon = c.icon || {
@@ -293,10 +318,13 @@ function injectDownloadsAfter(anchor, items) {
 
 function renderLanguages(languages = []) {
   const aboutSection = q('#about .resume-section-content');
-  if (!aboutSection || !languages.length) return;
+  if (!aboutSection) return;
 
+  // Remove existing languages section if present (prevents duplicates)
   const existing = q('#languages-section');
   if (existing) existing.remove();
+
+  if (!languages.length) return;
 
   const h3 = currentLanguage === 'es' ? 'Idiomas' : 'Languages';
   const block = document.createElement('div');
@@ -324,48 +352,47 @@ function renderExperience(items = []) {
   const sectionTitle = currentLanguage === 'es' ? 'Experiencia' : 'Experience';
   if (titleEl) titleEl.textContent = sectionTitle;
 
-  // If template missing, fall back: wipe content and add title
+  // Clear container to avoid duplicates on language switch
+  list.textContent = titleEl ? '' : list.textContent = '';
+
   const hasTemplate = !!$tpl('tpl-experience-item');
-  if (!hasTemplate) list.innerHTML = titleEl ? '' : `<h2 class="mb-5">${sectionTitle}</h2>`;
 
   items.forEach(x => {
-    const view = clone('tpl-experience-item');
-    if (!view) {
-      // fallback: simple block
-      const when = `${monthYear(x.employment?.start)} – ${x.employment?.end ? monthYear(x.employment.end) : (currentLanguage === 'es' ? 'Actual' : 'Present')}`;
-      const loc  = [x.company, x.location].filter(Boolean).join(' — ');
-      const div = document.createElement('div');
-      div.className = 'mb-4';
-      div.innerHTML = `
-        <h3 class="mb-0">${escapeHTML(x.role || '')}</h3>
-        <div class="text-muted">${escapeHTML(loc)}</div>
-        ${x.summary ? `<p>${escapeHTML(x.summary)}</p>` : ''}
-        ${(x.highlights||x.bullets||[]).length ? `<ul>${(x.highlights||x.bullets).map(b=>`<li>${b}</li>`).join('')}</ul>` : ''}
-        <div class="text-primary">${when}</div>
-      `;
-      list.appendChild(div);
-      return;
-    }
-
-    const bulletsUl = view.querySelector('[data-t="bullets"]');
-    const bullets = x.highlights || x.bullets || [];
-    if (bulletsUl) {
-      bulletsUl.innerHTML = bullets.map(b => `<li>${b}</li>`).join('');
-      if (!bullets.length) bulletsUl.remove();
-    }
+    const view = hasTemplate ? clone('tpl-experience-item') : null;
 
     const when = `${monthYear(x.employment?.start)} – ${x.employment?.end ? monthYear(x.employment.end) : (currentLanguage === 'es' ? 'Actual' : 'Present')}`;
     const loc  = [x.company, x.location].filter(Boolean).join(' — ');
+    const bullets = x.highlights || x.bullets || [];
     const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
     const stackText = x.stack?.length ? `${stackLabel}: ${x.stack.join(', ')}` : '';
 
-    set(view, 'role', x.role || '');
-    set(view, 'companyLoc', loc);
-    set(view, 'summary', x.summary || '');
-    set(view, 'when', when);
-    set(view, 'stack', stackText);
-
-    list.appendChild(view);
+    if (view) {
+      const bulletsUl = view.querySelector('[data-t="bullets"]');
+      if (bulletsUl) {
+        bulletsUl.innerHTML = bullets.map(b => `<li>${b}</li>`).join('');
+        if (!bullets.length) bulletsUl.remove();
+      }
+      set(view, 'role', x.role || '');
+      set(view, 'companyLoc', loc);
+      set(view, 'summary', x.summary || '');
+      set(view, 'when', when);
+      set(view, 'stack', stackText);
+      list.appendChild(view);
+    } else {
+      const div = document.createElement('div');
+      div.className = 'd-flex flex-column flex-md-row justify-content-between mb-5';
+      div.innerHTML = `
+        <div class="flex-grow-1">
+          <h3 class="mb-0">${escapeHTML(x.role || '')}</h3>
+          <div class="subheading mb-3">${escapeHTML(loc)}</div>
+          ${x.summary ? `<p>${escapeHTML(x.summary)}</p>` : ''}
+          ${bullets.length ? `<ul>${bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
+          ${stackText ? `<div class="small text-muted mt-2">${escapeHTML(stackText)}</div>` : ''}
+        </div>
+        <div class="flex-shrink-0"><span class="text-primary">${when}</span></div>
+      `;
+      list.appendChild(div);
+    }
   });
 }
 
@@ -377,18 +404,34 @@ function renderProjects(items = []) {
   const sectionTitle = currentLanguage === 'es' ? 'Proyectos' : 'Projects';
   if (titleEl) titleEl.textContent = sectionTitle;
 
+  // Clear container to avoid duplicates
+  list.textContent = titleEl ? '' : list.textContent = '';
+
   const hasTemplate = !!$tpl('tpl-project-item');
-  if (!hasTemplate) list.innerHTML = titleEl ? '' : `<h2 class="mb-5">${sectionTitle}</h2>`;
 
   items.forEach(p => {
-    const view = clone('tpl-project-item');
-    if (!view) {
+    const view = hasTemplate ? clone('tpl-project-item') : null;
+
+    const outcomes = (p.outcomes || []).map(o => `<li>${o}</li>`).join('');
+    const links = (p.links || [])
+      .map(l => `<a class="me-2" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(l.label)}</a>`)
+      .join('');
+
+    if (view) {
+      const outcomesUl = view.querySelector('[data-t="outcomes"]');
+      if (outcomesUl) { outcomesUl.innerHTML = outcomes; if (!outcomes) outcomesUl.remove(); }
+      const linksWrap = view.querySelector('[data-t="links"]');
+      if (linksWrap) { linksWrap.innerHTML = links; if (!links) linksWrap.remove(); }
+      const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
+      set(view, 'name', p.name || '');
+      set(view, 'subtitle', p.subtitle || '');
+      set(view, 'dates', p.dates || '');
+      set(view, 'summary', p.summary || '');
+      set(view, 'stack', p.stack?.length ? `${stackLabel}: ${p.stack.join(', ')}` : '');
+      list.appendChild(view);
+    } else {
       const div = document.createElement('div');
       div.className = 'mb-4';
-      const links = (p.links || [])
-        .map(l => `<a class="me-2" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(l.label)}</a>`)
-        .join('');
-      const outcomes = (p.outcomes || []).map(o => `<li>${o}</li>`).join('');
       div.innerHTML = `
         <h4 class="mb-1">${escapeHTML(p.name || '')}</h4>
         ${p.subtitle ? `<div class="text-muted">${escapeHTML(p.subtitle)}</div>` : ''}
@@ -398,31 +441,7 @@ function renderProjects(items = []) {
         ${links}
       `;
       list.appendChild(div);
-      return;
     }
-
-    const outcomesUl = view.querySelector('[data-t="outcomes"]');
-    if (outcomesUl) {
-      outcomesUl.innerHTML = (p.outcomes || []).map(o => `<li>${o}</li>`).join('');
-      if (!p.outcomes?.length) outcomesUl.remove();
-    }
-
-    const linksWrap = view.querySelector('[data-t="links"]');
-    if (linksWrap) {
-      linksWrap.innerHTML = (p.links || [])
-        .map(l => `<a class="me-2" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(l.label)}</a>`)
-        .join('');
-      if (!linksWrap.innerHTML) linksWrap.remove();
-    }
-
-    const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
-    set(view, 'name', p.name || '');
-    set(view, 'subtitle', p.subtitle || '');
-    set(view, 'dates', p.dates || '');
-    set(view, 'summary', p.summary || '');
-    set(view, 'stack', p.stack?.length ? `${stackLabel}: ${p.stack.join(', ')}` : '');
-
-    list.appendChild(view);
   });
 }
 
@@ -434,19 +453,15 @@ function renderSkills(skills = {}) {
   const sectionTitle = currentLanguage === 'es' ? 'Habilidades' : 'Skills';
   if (titleEl) titleEl.textContent = sectionTitle;
 
+  // Clear container to avoid duplicates
+  list.textContent = '';
+
   const hasCatTpl = !!$tpl('tpl-skill-category');
   const hasBadgeTpl = !!$tpl('tpl-skill-badge');
   const hasMeterTpl = !!$tpl('tpl-skill-meter');
 
-  if (!hasCatTpl || (!hasBadgeTpl && !hasMeterTpl)) {
-    // fallback: clear and add title
-    list.innerHTML = titleEl ? '' : `<h2 class="mb-5">${sectionTitle}</h2>`;
-  } else {
-    list.innerHTML = '';
-  }
-
   (skills.categories || []).forEach(cat => {
-    const catView = clone('tpl-skill-category') || document.createElement('div');
+    const catView = hasCatTpl ? clone('tpl-skill-category') : document.createElement('div');
     if (!catView.className) catView.className = 'mb-4';
     set(catView, 'name', cat.name || '');
 
@@ -463,12 +478,8 @@ function renderSkills(skills = {}) {
         itemsWrap.appendChild(meter);
       } else {
         const badge = hasBadgeTpl ? clone('tpl-skill-badge') : document.createElement('span');
-        if (!badge.querySelector) {
-          badge.className = 'badge bg-secondary me-2 mb-2';
-          badge.textContent = it.name || '';
-        } else {
-          set(badge, 'label', it.name || '');
-        }
+        if (!badge.querySelector) { badge.className = 'badge bg-secondary me-2 mb-2'; badge.textContent = it.name || ''; }
+        else { set(badge, 'label', it.name || ''); }
         itemsWrap.appendChild(badge);
       }
     });
@@ -485,15 +496,24 @@ function renderEducation(items = []) {
   const sectionTitle = currentLanguage === 'es' ? 'Educación' : 'Education';
   if (titleEl) titleEl.textContent = sectionTitle;
 
+  // Clear container to avoid duplicates
+  list.textContent = '';
+
   const hasTemplate = !!$tpl('tpl-education-item');
-  if (!hasTemplate) list.innerHTML = titleEl ? '' : `<h2 class="mb-5">${sectionTitle}</h2>`;
 
   const coursesLabel = currentLanguage === 'es' ? 'Cursos seleccionados' : 'Selected courses';
   const thesisLabel  = currentLanguage === 'es' ? 'Tesis' : 'Thesis';
 
   items.forEach(e => {
-    const view = clone('tpl-education-item');
-    if (!view) {
+    const view = hasTemplate ? clone('tpl-education-item') : null;
+    if (view) {
+      set(view, 'school', e.school || '');
+      set(view, 'degreeLoc', [e.degree, e.location].filter(Boolean).join(' — '));
+      set(view, 'period', `${e.start || ''} – ${e.end || ''}`);
+      if (e.courses?.length) set(view, 'courses', `${coursesLabel}: ${e.courses.join(', ')}`);
+      if (e.thesis) set(view, 'thesis', `${thesisLabel}: ${e.thesis}`);
+      list.appendChild(view);
+    } else {
       const div = document.createElement('div');
       div.className = 'mb-4';
       div.innerHTML = `
@@ -502,17 +522,7 @@ function renderEducation(items = []) {
         <div class="text-primary">${escapeHTML(e.start || '')} – ${escapeHTML(e.end || '')}</div>
       `;
       list.appendChild(div);
-      return;
     }
-
-    set(view, 'school', e.school || '');
-    set(view, 'degreeLoc', [e.degree, e.location].filter(Boolean).join(' — '));
-    set(view, 'period', `${e.start || ''} – ${e.end || ''}`);
-
-    if (e.courses?.length) set(view, 'courses', `${coursesLabel}: ${e.courses.join(', ')}`);
-    if (e.thesis) set(view, 'thesis', `${thesisLabel}: ${e.thesis}`);
-
-    list.appendChild(view);
   });
 }
 
@@ -534,7 +544,7 @@ function renderCertsAndVolunteering(certs = [], volunteering = []) {
 
   if (!certsUl || !volUl) return;
 
-  // reset
+  // reset lists (prevents duplicates)
   certsUl.innerHTML = '';
   volUl.innerHTML = '';
 
