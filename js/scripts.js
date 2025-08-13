@@ -391,7 +391,7 @@ function renderSkills(skills = {}) {
         return `<span class="badge bg-secondary me-2 mb-2">${label}</span>`;
       }
     }).join('');
-
+ 
     return `
       <div class="mb-4">
         <div class="subheading mb-2">${escapeHTML(cat.name || '')}</div>
