@@ -11064,33 +11064,7 @@ a:hover {
 /* Optional: badges and progress bars follow the theme */
 .badge.bg-secondary {
   background-color: color-mix(in srgb, var(--bs-primary) 25%, #6b7280 75%) !important;
-} 
+}
 .progress-bar {
   background-color: var(--bs-primary);
 }
-
-/* --- Mobile & tablet tweaks --- */
-@media (max-width: 991.98px) {
-  #sideNav { padding: .5rem 1rem; }
-  #about h1 { font-size: 2rem; line-height: 1.1; word-spacing: .02em; }
-  #about .subheading { font-size: .95rem; }
-  .resume-section { padding-left: 1rem; padding-right: 1rem; }
-  .resume-section .resume-section-content { padding-top: 1.25rem; }
-
-  /* Bigger tap targets for icons */
-  .social-icons a {
-    width: 48px; height: 48px; line-height: 48px;
-    font-size: 1.25rem; margin-right: .5rem;
-  }
-
-  /* Make download buttons stack and fill width */
-  .download-buttons-wrapper .btn {
-    display: block; width: 100%; margin: 0 0 .5rem 0;
-  }
-
-  /* Reduce excessive gaps between sections on mobile */
-  .resume-section + hr { margin: 0; }
-}
-
-/* Keep dropdown button compact in the top bar */
-#languageDropdownMobile + .dropdown-menu { min-width: 10rem; }
