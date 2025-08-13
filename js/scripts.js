@@ -9,14 +9,8 @@ let portfolioData = null;
 
 // Language configuration
 const languageConfig = {
-  en: {
-    file: './data/portfolio.en.json',
-    name: 'English'
-  },
-  es: {
-    file: './data/portfolio.es.json',
-    name: 'Español'
-  }
+  en: { file: './data/portfolio.en.json', name: 'English' },
+  es: { file: './data/portfolio.es.json', name: 'Español' }
 };
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -55,9 +49,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 async function loadLanguageData(lang) {
   try {
-    if (!languageConfig[lang]) {
-      throw new Error(`Language ${lang} not supported`);
-    }
+    if (!languageConfig[lang]) throw new Error(`Language ${lang} not supported`);
     
     const response = await fetch(languageConfig[lang].file);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -71,7 +63,6 @@ async function loadLanguageData(lang) {
     renderAllContent();
   } catch (error) {
     console.error('Failed to load portfolio data:', error);
-    
     // Fallback to English if preferred language fails
     if (lang !== 'en') {
       await loadLanguageData('en');
@@ -86,8 +77,8 @@ function setupLanguageSwitcher() {
   languageOptions.forEach(option => {
     option.addEventListener('click', async (e) => {
       e.preventDefault();
-      const lang = e.target.getAttribute('data-lang');
-      if (lang !== currentLanguage) {
+      const lang = e.currentTarget.getAttribute('data-lang');
+      if (lang && lang !== currentLanguage) {
         await loadLanguageData(lang);
       }
     });
@@ -95,10 +86,11 @@ function setupLanguageSwitcher() {
 }
 
 function updateLanguageSwitcher() {
+  const langName = languageConfig[currentLanguage]?.name || 'English';
   const currentLangEl = q('#currentLanguage');
-  if (currentLangEl) {
-    currentLangEl.textContent = languageConfig[currentLanguage]?.name || 'English';
-  }
+  const mobileLangEl = q('#mobileCurrentLanguage');
+  if (currentLangEl) currentLangEl.textContent = langName;
+  if (mobileLangEl) mobileLangEl.textContent = langName;
 }
 
 function renderAllContent() {
@@ -133,15 +125,10 @@ const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 function monthYear(iso) {
   if (!iso) return '';
   if (iso === 'Present') return currentLanguage === 'es' ? 'Actual' : 'Present';
-  
   const [y, m] = (iso + '').split('-');
   if (!m) return y;
-  
   const d = new Date(Number(y), Number(m) - 1, 1);
-  return d.toLocaleDateString(currentLanguage, { 
-    month: 'long', 
-    year: 'numeric' 
-  });
+  return d.toLocaleDateString(currentLanguage, { month: 'long', year: 'numeric' });
 }
 
 function escapeHTML(str = '') {
@@ -204,6 +191,20 @@ function applyVisibilityOrder(sections) {
   });
 }
 
+/** Render a compact inline list of links (shared across sections) */
+function renderLinksInline(links = []) {
+  if (!links || !links.length) return '';
+  return `
+    <div class="mt-2">
+      ${links.map(l => `
+        <a class="me-2 text-decoration-none" href="${escapeHTML(l.href || '#')}" target="_blank" rel="noreferrer">
+          ${escapeHTML(l.label || 'Link')}
+        </a>
+      `).join('')}
+    </div>
+  `;
+}
+
 /* ------------------------ renderers ------------------------ */
 
 function renderAbout(about = {}) {
@@ -217,12 +218,16 @@ function renderAbout(about = {}) {
   const sk = document.getElementById('about-skeleton');
   if (sk) sk.remove();
 
+  // Build name
+  const first = escapeHTML(about.name?.first || '');
+  const last = escapeHTML(about.name?.last || '');
   if (nameEl) {
-    const first = escapeHTML(about.name?.first || '');
-    const last = escapeHTML(about.name?.last || '');
     nameEl.innerHTML = `${first} <span class="text-primary">${last}</span>`;
   }
 
+  // IMPORTANT: Do NOT overwrite the mobile header anymore (it contains the language switcher).
+
+  // Contact info
   const location = [about.location?.city, about.location?.country].filter(Boolean).join(', ');
   const phone = about.contacts?.find(c => c.type === 'phone')?.value;
   const email = about.contacts?.find(c => c.type === 'email')?.value;
@@ -236,9 +241,9 @@ function renderAbout(about = {}) {
   }
 
   if (summaryEl) summaryEl.textContent = about.summary || '';
-
   if (avatar && about.avatar) avatar.src = about.avatar;
 
+  // Social links
   if (socialsEl) {
     socialsEl.innerHTML = (about.contacts || [])
       .filter(c => ['github','gitlab','linkedin','twitter','x','facebook','website'].includes(c.type))
@@ -257,19 +262,15 @@ function renderAbout(about = {}) {
       .join('');
   }
 
-  // Handle download buttons - more robust solution
+  // Download buttons
   const downloadButtonsContainerId = 'download-buttons-container';
   let downloadContainer = q(`#${downloadButtonsContainerId}`);
-  
-  // If container doesn't exist, create it
   if (!downloadContainer && about.downloadables?.length) {
     downloadContainer = document.createElement('div');
     downloadContainer.id = downloadButtonsContainerId;
     downloadContainer.className = 'mt-3';
     socialsEl?.after(downloadContainer);
   }
-  
-  // Update content if container exists
   if (downloadContainer) {
     downloadContainer.innerHTML = about.downloadables?.length 
       ? about.downloadables.map(d =>
@@ -319,6 +320,7 @@ function renderExperience(items = []) {
 
   const blocks = items.map(x => {
     const bullets = (x.highlights || x.bullets || []).map(b => `<li>${b}</li>`).join('');
+    const links = renderLinksInline(x.links || []);
     const stack = x.stack?.length ? `<div class="small text-muted mt-2">${stackLabel}: ${x.stack.join(', ')}</div>` : '';
     const when = `${monthYear(x.employment?.start)} – ${x.employment?.end ? monthYear(x.employment.end) : currentLanguage === 'es' ? 'Actual' : 'Present'}`;
     const loc = [x.company, x.location].filter(Boolean).join(' — ');
@@ -330,6 +332,7 @@ function renderExperience(items = []) {
           <div class="subheading mb-3">${escapeHTML(loc)}</div>
           ${x.summary ? `<p>${escapeHTML(x.summary)}</p>` : ''}
           ${bullets ? `<ul>${bullets}</ul>` : ''}
+          ${links}
           ${stack}
         </div>
         <div class="flex-shrink-0"><span class="text-primary">${when}</span></div>
@@ -421,6 +424,7 @@ function renderEducation(items = []) {
         <div class="subheading mb-3">${escapeHTML(e.degree || '')}${e.location ? ' — ' + escapeHTML(e.location) : ''}</div>
         ${e.courses?.length ? `<div class="small">${coursesLabel}: ${e.courses.map(escapeHTML).join(', ')}</div>` : ''}
         ${e.thesis ? `<div class="small text-muted mt-1">${thesisLabel}: ${escapeHTML(e.thesis)}</div>` : ''}
+        ${renderLinksInline(e.links || [])}
       </div>
       <div class="flex-shrink-0"><span class="text-primary">${escapeHTML(e.start || '')} – ${escapeHTML(e.end || '')}</span></div>
     </div>
@@ -434,17 +438,33 @@ function renderCertsAndVolunteering(certs = [], volunteering = []) {
   if (!wrap) return;
 
   const sectionTitle = currentLanguage === 'es' ? 'Certificaciones y Voluntariado' : 'Certifications & Volunteering';
-  const certsTitle = currentLanguage === 'es' ? 'Certificaciones' : 'Certifications';
-  const volTitle = currentLanguage === 'es' ? 'Voluntariado' : 'Volunteering';
+  const certsTitle   = currentLanguage === 'es' ? 'Certificaciones' : 'Certifications';
+  const volTitle     = currentLanguage === 'es' ? 'Voluntariado' : 'Volunteering';
+  const hoursLabel   = currentLanguage === 'es' ? 'h' : 'h';
 
-  const certList = certs.map(c => `
-    <li><strong>${escapeHTML(c.name || '')}</strong> — ${escapeHTML(c.issuer || '')} (${monthYear(c.start)} – ${monthYear(c.end)})</li>
-  `).join('');
+  const certList = certs.map(c => {
+    const when = `${monthYear(c.start)} – ${monthYear(c.end)}`;
+    const hours = (typeof c.hours === 'number' && c.hours > 0) ? ` &middot; ${c.hours}${hoursLabel}` : '';
+    const desc = c.description ? `<div class="text-muted small mt-1">${escapeHTML(c.description)}</div>` : '';
+    const links = renderLinksInline(c.links || []);
+    return `
+      <li class="mb-2">
+        <strong>${escapeHTML(c.name || '')}</strong>
+        — ${escapeHTML(c.issuer || '')}
+        <span class="text-primary">(${when}${hours})</span>
+        ${desc}
+        ${links}
+      </li>
+    `;
+  }).join('');
 
   const volList = volunteering.map(v => `
-    <li>
-      <strong>${escapeHTML(v.title || '')}</strong> — ${escapeHTML(v.org || '')} (${escapeHTML(v.dates || '')})
+    <li class="mb-2">
+      <strong>${escapeHTML(v.title || '')}</strong>
+      — ${escapeHTML(v.org || '')}
+      <span class="text-primary">(${escapeHTML(v.dates || '')})</span>
       ${v.summary ? `: ${escapeHTML(v.summary)}` : ''}
+      ${renderLinksInline(v.links || [])}
     </li>
     ${v.highlights?.length ? `<ul>${v.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
   `).join('');

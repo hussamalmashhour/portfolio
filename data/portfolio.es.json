@@ -153,7 +153,10 @@
         "Entregué **3+** aplicaciones Flutter en producción con gestión de estado (BLoC/GetX).",
         "Implementé UX a partir de prototipos Figma y coordiné lanzamientos con control de versiones."
       ],
-      "links": [],
+      "links": [
+        { "label": "Sitio de la Empresa", "href": "https://example.com/yes-company" },
+        { "label": "Notas de Versión", "href": "https://example.com/yes-mobile/release-notes" }
+      ],
       "tags": ["mobile","flutter","performance"]
     },
     {
@@ -169,7 +172,10 @@
         "Reduje vulnerabilidades del sistema en un **40%** mediante políticas de seguridad.",
         "Automaticé el seguimiento de inventario de hardware con Python."
       ],
-      "links": [],
+      "links": [
+        { "label": "Sitio de la Empresa", "href": "https://example.com/batec" },
+        { "label": "Script de Automatización", "href": "https://example.com/gist/automation" }
+      ],
       "tags": ["it","security","automation"]
     }
   ],
@@ -187,7 +193,11 @@
         "Unifiqué la autenticación entre móvil/web con estrategia de tokens."
       ],
       "stack": ["Laravel","Vue.js","Flutter","REST","MySQL"],
-      "links": [],
+      "links": [
+        { "label": "Repo (Web)", "href": "https://example.com/repo/famous-web" },
+        { "label": "Repo (Móvil)", "href": "https://example.com/repo/famous-mobile" },
+        { "label": "Demo", "href": "https://example.com/demo/famous" }
+      ],
       "media": [],
       "tags": ["fullstack","architecture"]
     },
@@ -200,7 +210,10 @@
       "summary": "Aplicación Flutter con búsqueda impulsada por IA, módulos de anuncios e integración con Firebase.",
       "outcomes": ["Mejoré el rendimiento de la aplicación en un **40%** tras pruebas/optimización."],
       "stack": ["Flutter","Dart","Firebase","GetX"],
-      "links": [{ "label": "Repositorio", "href": "https://gitlab.com/hussam_99/id-book" }],
+      "links": [
+        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/id-book" },
+        { "label": "Play Store (Vista previa)", "href": "https://example.com/store/id-book" }
+      ],
       "media": [],
       "tags": ["flutter","firebase","mobile"]
     },
@@ -213,7 +226,10 @@
       "summary": "Aplicación Flutter testeable con BLoC y capas modulares; APIs simuladas para iteración rápida.",
       "outcomes": ["Mejoré la modularidad y mantenibilidad mediante estratificación estricta."],
       "stack": ["Flutter","BLoC","MockAPI"],
-      "links": [{ "label": "Repositorio", "href": "https://gitlab.com/hussam_99/posts-app-flutter-bloc" }],
+      "links": [
+        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/posts-app-flutter-bloc" },
+        { "label": "Notas de Arquitectura", "href": "https://example.com/docs/clean-arch-posts" }
+      ],
       "tags": ["clean-architecture","bloc"]
     },
     {
@@ -225,7 +241,10 @@
       "summary": "Backend con Laravel que incluye lógica de negocio, APIs REST y modelos MySQL para cliente empresarial.",
       "outcomes": ["Entregué una superficie de API mantenible alineada con los objetivos de las partes interesadas."],
       "stack": ["Laravel","PHP","MySQL","REST"],
-      "links": [{ "label": "Repositorio", "href": "https://gitlab.com/hussam_99/darrebni-management-system" }],
+      "links": [
+        { "label": "Repositorio", "href": "https://gitlab.com/hussam_99/darrebni-management-system" },
+        { "label": "Docs de API", "href": "https://example.com/docs/darrebni-api" }
+      ],
       "tags": ["laravel","backend"]
     }
   ],
@@ -238,7 +257,10 @@
       "start": "2024",
       "end": "Actual",
       "courses": [],
-      "thesis": null
+      "thesis": null,
+      "links": [
+        { "label": "Página del Programa", "href": "https://example.com/usalamanca/msc-informatics" }
+      ]
     },
     {
       "degree": "B.Sc. Ingeniería de Software y Sistemas de Información",
@@ -247,14 +269,48 @@
       "start": "2018",
       "end": "2023",
       "courses": ["Ingeniería de Software", "Sistemas de Información"],
-      "thesis": null
+      "thesis": null,
+      "links": [
+        { "label": "Página de la Facultad", "href": "https://example.com/albaath/software-engineering" }
+      ]
     }
   ],
 
   "certifications": [
-    { "name": "Formación en Desarrollo Laravel", "issuer": "Compañía Darebin", "start": "2023-08", "end": "2024-02" },
-    { "name": "Inglés C1", "issuer": "HDISC, Homs", "start": "2023-03", "end": "2024-07" },
-    { "name": "Mantenimiento de Computadoras", "issuer": "GOPA DRED & UNFPA", "start": "2022-02", "end": "2022-03" }
+    {
+      "name": "Formación en Desarrollo Laravel",
+      "issuer": "Compañía Darebin",
+      "start": "2023-08",
+      "end": "2024-02",
+      "hours": null,
+      "description": "Formación práctica en desarrollo con Laravel: APIs REST, autenticación, Eloquent, testing y despliegues.",
+      "links": [
+        { "label": "Certificado", "href": "https://example.com/certificates/laravel-training" },
+        { "label": "Programa", "href": "https://example.com/syllabus/laravel" }
+      ]
+    },
+    {
+      "name": "Inglés C1",
+      "issuer": "HDISC, Homs",
+      "start": "2023-03",
+      "end": "2024-07",
+      "hours": null,
+      "description": "Curso avanzado de inglés (nivel C1) enfocado en conversación, escritura y preparación de exámenes.",
+      "links": [
+        { "label": "Certificado", "href": "https://example.com/certificates/english-c1" }
+      ]
+    },
+    {
+      "name": "Mantenimiento de Computadoras",
+      "issuer": "GOPA DRED & UNFPA",
+      "start": "2022-02",
+      "end": "2022-03",
+      "hours": null,
+      "description": "Mantenimiento y solución de problemas de computadoras: hardware, instalación de sistemas, diagnóstico y prevención.",
+      "links": [
+        { "label": "Detalles del Programa", "href": "https://example.com/programs/computer-maintenance" }
+      ]
+    }
   ],
 
   "volunteering": [
@@ -267,7 +323,10 @@
         "Coordine **50+** equipos para eventos con **1000+** asistentes.",
         "Construí sitios web/aplicaciones móviles con equipos técnicos; lideré estrategia en redes sociales."
       ],
-      "links": []
+      "links": [
+        { "label": "Página de la Organización", "href": "https://example.com/volunteering/org" },
+        { "label": "Galería de Eventos", "href": "https://example.com/volunteering/gallery" }
+      ]
     }
   ],
 
@@ -277,11 +336,20 @@
     {
       "name": "Desarrollo de Apps con Flutter",
       "description": "Desarrollo completo para Android/iOS con CI/CD y mejores prácticas en gestión de estado.",
-      "tags": ["flutter","mobile","ci-cd"]
+      "tags": ["flutter","mobile","ci-cd"],
+      "links": [
+        { "label": "Página del Servicio", "href": "https://example.com/services/flutter" },
+        { "label": "Caso de Estudio", "href": "https://example.com/case-studies/flutter-app" }
+      ]
     },
     {
       "name": "Backends Laravel & APIs",
       "description": "Diseño REST, autenticación, caché, testing y modelado de bases de datos.",
-      "tags": ["laravel","api","mysql"]
+      "tags": ["laravel","api","mysql"],
+      "links": [
+        { "label": "Página del Servicio", "href": "https://example.com/services/laravel" },
+        { "label": "Portafolio de APIs", "href": "https://example.com/portfolio/apis" }
+      ]
     }
-  ]}
+  ]
+}

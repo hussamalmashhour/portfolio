@@ -21,13 +21,53 @@
     <!-- Core theme CSS (preload + load) -->
     <link rel="preload" href="./css/styles.css" as="style" />
     <link href="./css/styles.css" rel="stylesheet" />
+
+    <!-- Safe overrides for the language switcher -->
+    <style>
+      /* Hide the mobile switcher on ≥992px just in case */
+      @media (min-width: 992px) {
+        .mobile-lang { display: none !important; }
+      }
+      /* Left-align the brand area on mobile and keep toggler at the right */
+      @media (max-width: 991.98px) {
+        #sideNav .navbar-brand {
+          display: flex !important;
+          align-items: center;
+          justify-content: flex-start;   /* <-- left */
+          width: 100%;
+          padding-left: .75rem;          /* hug the edge */
+          padding-right: .75rem;
+        }
+        #sideNav .navbar-toggler {
+          margin-left: auto;             /* push burger to the right */
+        }
+        .mobile-lang { display: block; padding-top: .25rem; }
+        .mobile-lang .btn { margin-left: 0; }
+      }
+    </style>
   </head>
 
   <body id="page-top" class="theme theme-charcoal">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Loading…</span>
+
+        <!-- Mobile Language Switcher (replaces name in header) -->
+        <div class="mobile-lang d-lg-none">
+          <div class="dropdown">
+            <a class="btn btn-sm btn-outline-light dropdown-toggle" href="#" id="mobileLanguageDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-language me-1"></i>
+              <span id="mobileCurrentLanguage">English</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="mobileLanguageDropdown">
+              <li><a class="dropdown-item language-option" href="#" data-lang="en">English</a></li>
+              <li><a class="dropdown-item language-option" href="#" data-lang="es">Español</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /Mobile Language Switcher -->
+
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2"
                src="./assets/img/profile.jpg"
@@ -38,6 +78,7 @@
                height="160" />
         </span>
       </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
               aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -51,10 +92,10 @@
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Certifications &amp; Volunteering</a></li>
-          
-          <!-- Language Switcher Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" 
+
+          <!-- Language Switcher Dropdown (desktop only) -->
+          <li class="nav-item dropdown d-none d-lg-block">
+            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-language me-1"></i>
               <span id="currentLanguage">English</span>
@@ -64,6 +105,7 @@
               <li><a class="dropdown-item language-option" href="#" data-lang="es">Español</a></li>
             </ul>
           </li>
+          <!-- /Language Switcher Dropdown -->
         </ul>
       </div>
     </nav>
@@ -84,41 +126,31 @@
 
       <!-- Experience -->
       <section class="resume-section" id="experience">
-        <div class="resume-section-content">
-          <!-- Filled by scripts.js -->
-        </div>
+        <div class="resume-section-content"></div>
       </section>
       <hr class="m-0" />
 
       <!-- Projects -->
       <section class="resume-section" id="interests">
-        <div class="resume-section-content">
-          <!-- Filled by scripts.js -->
-        </div>
+        <div class="resume-section-content"></div>
       </section>
       <hr class="m-0" />
 
       <!-- Skills -->
       <section class="resume-section" id="skills">
-        <div class="resume-section-content">
-          <!-- Filled by scripts.js -->
-        </div>
+        <div class="resume-section-content"></div>
       </section>
       <hr class="m-0" />
 
       <!-- Education -->
       <section class="resume-section" id="education">
-        <div class="resume-section-content">
-          <!-- Filled by scripts.js -->
-        </div>
+        <div class="resume-section-content"></div>
       </section>
       <hr class="m-0" />
 
       <!-- Certifications & Volunteering -->
       <section class="resume-section" id="awards">
-        <div class="resume-section-content">
-          <!-- Filled by scripts.js -->
-        </div>
+        <div class="resume-section-content"></div>
       </section>
     </div>
 
