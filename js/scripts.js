@@ -1,14 +1,12 @@
 /*!
  * Resume template with multi-language support
- * Loads either portfolio.en.json or portfolio.es.json
- * Uses <template> cloning (no HTML strings in JS for structure)
+ * Uses <template> cloning
  */
 
-// Current language and data
 let currentLanguage = 'en';
 let portfolioData = null;
+let __renderToken = 0;              // <- prevents overlapping renders
 
-// Language configuration
 const languageConfig = {
   en: { file: './data/portfolio.en.json', name: 'English' },
   es: { file: './data/portfolio.es.json', name: 'Español' }
@@ -16,11 +14,9 @@ const languageConfig = {
 
 /* -------------------- boot -------------------- */
 window.addEventListener('DOMContentLoaded', async () => {
-  // Prevent double init if the script gets injected twice
   if (window.__resume_inited__) return;
   window.__resume_inited__ = true;
 
-  // Initialize scrollspy and responsive navbar
   const sideNav = document.body.querySelector('#sideNav');
   if (sideNav && window.bootstrap?.ScrollSpy) {
     new bootstrap.ScrollSpy(document.body, {
@@ -39,10 +35,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Initialize language switcher
   setupLanguageSwitcher();
 
-  // Load data based on saved language preference or browser language
   const savedLanguage = localStorage.getItem('portfolioLanguage');
   const browserLanguage = (navigator.language || 'en').split('-')[0];
   const defaultLanguage = Object.keys(languageConfig).includes(browserLanguage) ? browserLanguage : 'en';
@@ -62,69 +56,41 @@ async function loadLanguageData(lang) {
     currentLanguage = lang;
     localStorage.setItem('portfolioLanguage', lang);
 
-    // Update UI
     updateLanguageSwitcher();
-    renderAllContent();
-  } catch (error) {
-    console.error('Failed to load portfolio data:', error);
-    if (lang !== 'en') {
-      await loadLanguageData('en');
-    } else {
-      showErrorState();
-    }
+
+    // render with a token: if a second render starts, the older one quietly stops
+    const myToken = ++__renderToken;
+    await renderAllContent(myToken);
+  } catch (e) {
+    console.error('Failed to load portfolio data:', e);
+    if (lang !== 'en') await loadLanguageData('en'); else showErrorState();
   }
 }
 
 function setupLanguageSwitcher() {
-  // Works for BOTH desktop and mobile dropdowns
-  const languageOptions = qa('.language-option');
-  languageOptions.forEach(option => {
+  // bind once to ALL dropdown items (desktop + mobile)
+  qa('.language-option').forEach(option => {
     option.addEventListener('click', async (e) => {
       e.preventDefault();
+      e.stopPropagation(); // avoid any parent handlers firing too
       const lang = e.currentTarget.getAttribute('data-lang');
-      if (lang && lang !== currentLanguage) {
-        await loadLanguageData(lang);
-      }
-    });
+      if (lang && lang !== currentLanguage) await loadLanguageData(lang);
+    }, { passive: true });
   });
 }
 
 function updateLanguageSwitcher() {
   const name = languageConfig[currentLanguage]?.name || 'English';
-  // Support multiple labels (mobile + desktop)
-  qa('.currentLanguage').forEach(el => (el.textContent = name));
-  // Backward-compat if old id still exists
-  const single = q('#currentLanguage');
+  qa('.currentLanguage').forEach(el => el.textContent = name);
+  const single = q('#currentLanguage'); // backward-compat if old id exists
   if (single) single.textContent = name;
 }
 
-/* -------------------- page render orchestration -------------------- */
-function renderAllContent() {
-  if (!portfolioData) return;
-
-  applySiteMeta(portfolioData.site);
-  applyVisibilityOrder(portfolioData.site?.sections || []);
-
-  renderAbout(portfolioData.about);
-  renderExperience(portfolioData.experience || []);
-  renderProjects(portfolioData.projects || []);
-  renderSkills(portfolioData.skills || {});
-  renderEducation(portfolioData.education || []);
-  renderCertsAndVolunteering(
-    portfolioData.certifications || [],
-    portfolioData.volunteering || []
-  );
-  renderLanguages(portfolioData.about?.languages || []);
-}
-
-function showErrorState() {
-  const aboutLead = q('#about .lead') || q('#about');
-  if (aboutLead) aboutLead.textContent = 'Unable to load profile data. Please try reloading.';
-}
-
-/* ------------------------ helpers ------------------------ */
+/* -------------------- helpers -------------------- */
 const q  = (sel, root = document) => root.querySelector(sel);
 const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+function clear(el) { if (el) el.replaceChildren(); }  // <- bulletproof clear
 
 function monthYear(iso) {
   if (!iso) return '';
@@ -139,108 +105,76 @@ function escapeHTML(str = '') {
   return str.replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
 }
 
-function applySiteMeta(site = {}) {
-  if (site.title) document.title = site.title;
-}
+function applySiteMeta(site = {}) { if (site.title) document.title = site.title; }
 
-/** Hide sections marked visible:false in site.sections and reorder nav items */
 function applyVisibilityOrder(sections) {
   const byId = Object.fromEntries((sections || []).map(s => [s.id, s]));
   const idMap = {
-    about: '#about',
-    experience: '#experience',
-    projects: '#interests',
-    skills: '#skills',
-    education: '#education',
-    certifications: '#awards',
-    volunteering: '#awards'
+    about: '#about', experience: '#experience', projects: '#interests',
+    skills: '#skills', education: '#education', certifications: '#awards', volunteering: '#awards'
   };
 
-  // Visibility
   Object.entries(idMap).forEach(([logical, css]) => {
-    const meta = byId[logical];
-    const el = q(css);
-    if (!el) return;
-    if (meta && meta.visible === false) {
-      el.style.display = 'none';
-      const href = css.startsWith('#') ? css : '#' + css;
-      const navItem = qa(`#navbarResponsive .nav-link[href="${href}"]`)[0];
-      if (navItem) navItem.parentElement.style.display = 'none';
-    } else {
-      // ensure visible if previously hidden
-      el.style.display = '';
-      const href = css.startsWith('#') ? css : '#' + css;
-      const navItem = qa(`#navbarResponsive .nav-link[href="${href}"]`)[0];
-      if (navItem) navItem.parentElement.style.display = '';
-    }
+    const meta = byId[logical]; const el = q(css); if (!el) return;
+    const href = css.startsWith('#') ? css : '#' + css;
+    const navItem = qa(`#navbarResponsive .nav-link[href="${href}"]`)[0]?.parentElement;
+    if (meta && meta.visible === false) { el.style.display = 'none'; if (navItem) navItem.style.display = 'none'; }
+    else { el.style.display = ''; if (navItem) navItem.style.display = ''; }
   });
 
-  // Navbar order (de-duplicate anchors like #awards)
-  const navUl = q('#navbarResponsive .navbar-nav');
-  if (!navUl) return;
+  const navUl = q('#navbarResponsive .navbar-nav'); if (!navUl) return;
   const currentLis = qa('li.nav-item', navUl);
   const liByHref = new Map(currentLis.map(li => [li.querySelector('a')?.getAttribute('href'), li]));
-
   const desiredOrder = (sections || [])
     .filter(s => s.visible !== false)
-    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .sort((a,b) => (a.order||0)-(b.order||0))
     .map(s => liByHref.get(idMap[s.id] || `#${s.id}`))
     .filter(Boolean);
 
   const seen = new Set();
-  desiredOrder.forEach(li => {
-    const href = li.querySelector('a')?.getAttribute('href');
-    if (seen.has(href)) return;
-    seen.add(href);
-    navUl.appendChild(li);
-  });
+  desiredOrder.forEach(li => { const href = li.querySelector('a')?.getAttribute('href'); if (seen.has(href)) return; seen.add(href); navUl.appendChild(li); });
 }
 
-/* ---------- template helpers ---------- */
-function $tpl(id) {
-  const t = q(`#${id}`);
-  if (!t || !t.content || !t.content.firstElementChild) {
-    console.warn(`Missing or empty template: #${id}`);
-    return null;
-  }
-  return t.content.firstElementChild;
-}
-function clone(id) {
-  const base = $tpl(id);
-  return base ? base.cloneNode(true) : null;
-}
-function set(el, key, text) {
-  if (!el) return;
-  const node = el.querySelector(`[data-t="${key}"]`);
-  if (!node) return;
-  if (text == null || text === '') { node.hidden = true; return; }
-  node.hidden = false;
-  node.textContent = text;
-}
-function setHTML(el, key, html) {
-  if (!el) return;
-  const node = el.querySelector(`[data-t="${key}"]`);
-  if (!node) return;
-  if (!html) { node.hidden = true; return; }
-  node.hidden = false;
-  node.innerHTML = html;
+/* template helpers */
+function $tpl(id){ const t=q(`#${id}`); return (t&&t.content&&t.content.firstElementChild)?t.content.firstElementChild:null; }
+function clone(id){ const base=$tpl(id); return base?base.cloneNode(true):null; }
+function set(el,key,text){ const n=el?.querySelector?.(`[data-t="${key}"]`); if(!n)return; if(text==null||text===''){n.hidden=true;return;} n.hidden=false; n.textContent=text; }
+function setHTML(el,key,html){ const n=el?.querySelector?.(`[data-t="${key}"]`); if(!n)return; if(!html){n.hidden=true;return;} n.hidden=false; n.innerHTML=html; }
+
+/* -------------------- render orchestration -------------------- */
+async function renderAllContent(token) {
+  if (!portfolioData) return;
+  // if a newer render started, abort silently
+  if (token !== __renderToken) return;
+
+  applySiteMeta(portfolioData.site);
+
+  renderAbout(portfolioData.about);                             if (token !== __renderToken) return;
+  renderExperience(portfolioData.experience || []);            if (token !== __renderToken) return;
+  renderProjects(portfolioData.projects || []);                if (token !== __renderToken) return;
+  renderSkills(portfolioData.skills || {});                    if (token !== __renderToken) return;
+  renderEducation(portfolioData.education || []);              if (token !== __renderToken) return;
+  renderCertsAndVolunteering(
+    portfolioData.certifications || [],
+    portfolioData.volunteering || []
+  );                                                           if (token !== __renderToken) return;
+  renderLanguages(portfolioData.about?.languages || []);
 }
 
-/* ------------------------ renderers (template-based) ------------------------ */
+function showErrorState() {
+  const aboutLead = q('#about .lead') || q('#about');
+  if (aboutLead) aboutLead.textContent = 'Unable to load profile data. Please try reloading.';
+}
 
+/* -------------------- renderers -------------------- */
 function renderAbout(about = {}) {
-  const host = q('#about');
-  if (!host) return;
+  const host = q('#about'); if (!host) return;
 
-  // remove skeleton if present
-  const sk = q('#about-skeleton');
-  if (sk) sk.remove();
+  const sk = q('#about-skeleton'); if (sk) sk.remove();
 
-  // side avatar
   const avatar = q('#sideNav img.img-profile');
   if (avatar && about.avatar) avatar.src = about.avatar;
 
-  // Build subheading (location · phone · email)
   const location = [about.location?.city, about.location?.country].filter(Boolean).join(', ');
   const phone = about.contacts?.find(c => c.type === 'phone')?.value;
   const email = about.contacts?.find(c => c.type === 'email')?.value;
@@ -249,33 +183,25 @@ function renderAbout(about = {}) {
 
   const view = clone('tpl-about');
   if (!view) {
-    // graceful fallback: fill existing nodes (keeps site usable if templates missing)
-    const nameEl = q('#about h1');
-    const subEl = q('#about .subheading');
-    const summaryEl = q('#about .lead');
-    const socialsEl = q('#about .social-icons');
+    const nameEl = q('#about h1'); const subEl = q('#about .subheading');
+    const summaryEl = q('#about .lead'); const socialsEl = q('#about .social-icons');
     if (nameEl) nameEl.innerHTML = `${escapeHTML(about.name?.first || '')} <span class="text-primary">${escapeHTML(about.name?.last || '')}</span>`;
     if (subEl) subEl.innerHTML = sub;
     if (summaryEl) summaryEl.textContent = about.summary || '';
     if (socialsEl) socialsEl.innerHTML = buildSocialsHTML(about.contacts || []);
-    // remove any old downloads wrapper before injecting (prevents duplicates)
-    const oldDl = q('#about .download-buttons-wrapper');
-    if (oldDl) oldDl.remove();
+    const oldDl = q('#about .download-buttons-wrapper'); if (oldDl) oldDl.remove();
     injectDownloadsAfter(socialsEl, about.downloadables || []);
     return;
   }
 
-  // fill template
   set(view, 'first', about.name?.first || '');
   set(view, 'last',  about.name?.last  || '');
   setHTML(view, 'sub', sub);
   set(view, 'summary', about.summary || '');
 
-  // socials
   const socialsWrap = view.querySelector('[data-t="socials"]');
   if (socialsWrap) socialsWrap.innerHTML = buildSocialsHTML(about.contacts || []);
 
-  // downloads
   const dl = view.querySelector('[data-t="downloads"]');
   if (dl) {
     dl.innerHTML = (about.downloadables || [])
@@ -284,7 +210,6 @@ function renderAbout(about = {}) {
     if (!dl.innerHTML) dl.remove();
   }
 
-  // replace about content (prevents duplicates on language switch)
   const content = host.querySelector('.resume-section-content');
   if (content) content.replaceWith(view);
 }
@@ -294,13 +219,8 @@ function buildSocialsHTML(list) {
     .filter(c => ['github','gitlab','linkedin','twitter','x','facebook','website'].includes(c.type))
     .map(c => {
       const icon = c.icon || {
-        github: 'fab fa-github',
-        gitlab: 'fab fa-gitlab',
-        linkedin: 'fab fa-linkedin-in',
-        twitter: 'fab fa-twitter',
-        x: 'fab fa-x-twitter',
-        facebook: 'fab fa-facebook-f',
-        website: 'fa-solid fa-globe'
+        github: 'fab fa-github', gitlab: 'fab fa-gitlab', linkedin: 'fab fa-linkedin-in',
+        twitter: 'fab fa-twitter', x: 'fab fa-x-twitter', facebook: 'fab fa-facebook-f', website: 'fa-solid fa-globe'
       }[c.type] || 'fa-solid fa-link';
       return `<a class="social-icon" href="${escapeHTML(c.href || '#')}" target="_blank" rel="noreferrer"><i class="${icon}"></i></a>`;
     }).join('');
@@ -310,20 +230,15 @@ function injectDownloadsAfter(anchor, items) {
   if (!anchor || !items?.length) return;
   const wrapper = document.createElement('div');
   wrapper.className = 'mt-3 download-buttons-wrapper';
-  wrapper.innerHTML = items
-    .map(d => `<a class="btn btn-sm btn-outline-primary me-2" href="${escapeHTML(d.href)}" target="_blank" rel="noreferrer">${escapeHTML(d.label)}</a>`)
-    .join('');
+  wrapper.innerHTML = items.map(d =>
+    `<a class="btn btn-sm btn-outline-primary me-2" href="${escapeHTML(d.href)}" target="_blank" rel="noreferrer">${escapeHTML(d.label)}</a>`
+  ).join('');
   anchor.after(wrapper);
 }
 
 function renderLanguages(languages = []) {
-  const aboutSection = q('#about .resume-section-content');
-  if (!aboutSection) return;
-
-  // Remove existing languages section if present (prevents duplicates)
-  const existing = q('#languages-section');
-  if (existing) existing.remove();
-
+  const aboutSection = q('#about .resume-section-content'); if (!aboutSection) return;
+  const existing = q('#languages-section'); if (existing) existing.remove();
   if (!languages.length) return;
 
   const h3 = currentLanguage === 'es' ? 'Idiomas' : 'Languages';
@@ -333,45 +248,35 @@ function renderLanguages(languages = []) {
   block.innerHTML = `
     <h3 class="mb-3">${h3}</h3>
     <ul class="list-unstyled">
-      ${languages.map(lang => `
-        <li class="mb-2"><strong>${escapeHTML(lang.name)}</strong>: ${escapeHTML(lang.level)}</li>
-      `).join('')}
-    </ul>
-  `;
-  const anchor = q('.download-buttons-wrapper', aboutSection) ||
-                 q('.social-icons', aboutSection) ||
-                 q('.lead', aboutSection);
+      ${languages.map(lang => `<li class="mb-2"><strong>${escapeHTML(lang.name)}</strong>: ${escapeHTML(lang.level)}</li>`).join('')}
+    </ul>`;
+  const anchor = q('.download-buttons-wrapper', aboutSection) || q('.social-icons', aboutSection) || q('.lead', aboutSection);
   (anchor || aboutSection).insertAdjacentElement('afterend', block);
 }
 
+/* ----------- Sections (now always cleared before append) ----------- */
 function renderExperience(items = []) {
-  const titleEl = q('#experience-title') || q('#experience .resume-section-content h2');
-  const list = q('#experience-list') || q('#experience .resume-section-content');
+  const titleEl = q('#experience-title');
+  const list    = q('#experience-list') || q('#experience .resume-section-content');
   if (!list) return;
 
   const sectionTitle = currentLanguage === 'es' ? 'Experiencia' : 'Experience';
   if (titleEl) titleEl.textContent = sectionTitle;
 
-  // Clear container to avoid duplicates on language switch
-  list.textContent = titleEl ? '' : list.textContent = '';
-
+  clear(list);                        // <- prevents duplicates every time
   const hasTemplate = !!$tpl('tpl-experience-item');
 
   items.forEach(x => {
-    const view = hasTemplate ? clone('tpl-experience-item') : null;
-
     const when = `${monthYear(x.employment?.start)} – ${x.employment?.end ? monthYear(x.employment.end) : (currentLanguage === 'es' ? 'Actual' : 'Present')}`;
     const loc  = [x.company, x.location].filter(Boolean).join(' — ');
     const bullets = x.highlights || x.bullets || [];
     const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
     const stackText = x.stack?.length ? `${stackLabel}: ${x.stack.join(', ')}` : '';
 
+    const view = hasTemplate ? clone('tpl-experience-item') : null;
     if (view) {
       const bulletsUl = view.querySelector('[data-t="bullets"]');
-      if (bulletsUl) {
-        bulletsUl.innerHTML = bullets.map(b => `<li>${b}</li>`).join('');
-        if (!bullets.length) bulletsUl.remove();
-      }
+      if (bulletsUl) { bulletsUl.innerHTML = bullets.map(b => `<li>${b}</li>`).join(''); if (!bullets.length) bulletsUl.remove(); }
       set(view, 'role', x.role || '');
       set(view, 'companyLoc', loc);
       set(view, 'summary', x.summary || '');
@@ -389,39 +294,35 @@ function renderExperience(items = []) {
           ${bullets.length ? `<ul>${bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
           ${stackText ? `<div class="small text-muted mt-2">${escapeHTML(stackText)}</div>` : ''}
         </div>
-        <div class="flex-shrink-0"><span class="text-primary">${when}</span></div>
-      `;
+        <div class="flex-shrink-0"><span class="text-primary">${when}</span></div>`;
       list.appendChild(div);
     }
   });
 }
 
 function renderProjects(items = []) {
-  const titleEl = q('#projects-title') || q('#interests .resume-section-content h2');
-  const list = q('#projects-list') || q('#interests .resume-section-content');
+  const titleEl = q('#projects-title');
+  const list    = q('#projects-list') || q('#interests .resume-section-content');
   if (!list) return;
 
   const sectionTitle = currentLanguage === 'es' ? 'Proyectos' : 'Projects';
   if (titleEl) titleEl.textContent = sectionTitle;
 
-  // Clear container to avoid duplicates
-  list.textContent = titleEl ? '' : list.textContent = '';
-
+  clear(list);
   const hasTemplate = !!$tpl('tpl-project-item');
 
   items.forEach(p => {
-    const view = hasTemplate ? clone('tpl-project-item') : null;
-
     const outcomes = (p.outcomes || []).map(o => `<li>${o}</li>`).join('');
-    const links = (p.links || [])
-      .map(l => `<a class="me-2" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(l.label)}</a>`)
-      .join('');
+    const links = (p.links || []).map(l =>
+      `<a class="me-2" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(l.label)}</a>`
+    ).join('');
 
+    const view = hasTemplate ? clone('tpl-project-item') : null;
     if (view) {
       const outcomesUl = view.querySelector('[data-t="outcomes"]');
       if (outcomesUl) { outcomesUl.innerHTML = outcomes; if (!outcomes) outcomesUl.remove(); }
       const linksWrap = view.querySelector('[data-t="links"]');
-      if (linksWrap) { linksWrap.innerHTML = links; if (!links) linksWrap.remove(); }
+      if (linksWrap)  { linksWrap.innerHTML  = links;    if (!links) linksWrap.remove(); }
       const stackLabel = currentLanguage === 'es' ? 'Tecnologías' : 'Stack';
       set(view, 'name', p.name || '');
       set(view, 'subtitle', p.subtitle || '');
@@ -438,23 +339,21 @@ function renderProjects(items = []) {
         <div class="text-primary mb-2">${escapeHTML(p.dates || '')}</div>
         ${p.summary ? `<p>${escapeHTML(p.summary)}</p>` : ''}
         ${outcomes ? `<ul>${outcomes}</ul>` : ''}
-        ${links}
-      `;
+        ${links}`;
       list.appendChild(div);
     }
   });
 }
 
 function renderSkills(skills = {}) {
-  const titleEl = q('#skills-title') || q('#skills .resume-section-content h2');
-  const list = q('#skills-list') || q('#skills .resume-section-content');
+  const titleEl = q('#skills-title');
+  const list    = q('#skills-list') || q('#skills .resume-section-content');
   if (!list) return;
 
   const sectionTitle = currentLanguage === 'es' ? 'Habilidades' : 'Skills';
   if (titleEl) titleEl.textContent = sectionTitle;
 
-  // Clear container to avoid duplicates
-  list.textContent = '';
+  clear(list);
 
   const hasCatTpl = !!$tpl('tpl-skill-category');
   const hasBadgeTpl = !!$tpl('tpl-skill-badge');
@@ -464,7 +363,6 @@ function renderSkills(skills = {}) {
     const catView = hasCatTpl ? clone('tpl-skill-category') : document.createElement('div');
     if (!catView.className) catView.className = 'mb-4';
     set(catView, 'name', cat.name || '');
-
     const itemsWrap = catView.querySelector('[data-t="items"]') || catView;
 
     (cat.items || []).forEach(it => {
@@ -489,18 +387,16 @@ function renderSkills(skills = {}) {
 }
 
 function renderEducation(items = []) {
-  const titleEl = q('#education-title') || q('#education .resume-section-content h2');
-  const list = q('#education-list') || q('#education .resume-section-content');
+  const titleEl = q('#education-title');
+  const list    = q('#education-list') || q('#education .resume-section-content');
   if (!list) return;
 
   const sectionTitle = currentLanguage === 'es' ? 'Educación' : 'Education';
   if (titleEl) titleEl.textContent = sectionTitle;
 
-  // Clear container to avoid duplicates
-  list.textContent = '';
+  clear(list);
 
   const hasTemplate = !!$tpl('tpl-education-item');
-
   const coursesLabel = currentLanguage === 'es' ? 'Cursos seleccionados' : 'Selected courses';
   const thesisLabel  = currentLanguage === 'es' ? 'Tesis' : 'Thesis';
 
@@ -519,36 +415,27 @@ function renderEducation(items = []) {
       div.innerHTML = `
         <h3 class="mb-0">${escapeHTML(e.school || '')}</h3>
         <div class="text-muted">${escapeHTML(e.degree || '')}${e.location ? ' — ' + escapeHTML(e.location) : ''}</div>
-        <div class="text-primary">${escapeHTML(e.start || '')} – ${escapeHTML(e.end || '')}</div>
-      `;
+        <div class="text-primary">${escapeHTML(e.start || '')} – ${escapeHTML(e.end || '')}</div>`;
       list.appendChild(div);
     }
   });
 }
 
 function renderCertsAndVolunteering(certs = [], volunteering = []) {
-  const wrap = q('#awards .resume-section-content');
-  if (!wrap) return;
-
-  const sectionTitle = currentLanguage === 'es' ? 'Certificaciones y Voluntariado' : 'Certifications & Volunteering';
-  const certsTitle   = currentLanguage === 'es' ? 'Certificaciones' : 'Certifications';
-  const volTitle     = currentLanguage === 'es' ? 'Voluntariado'   : 'Volunteering';
-
-  const titleH2 = q('#awards-title');
-  if (titleH2) titleH2.textContent = sectionTitle;
+  const titleH2 = q('#awards-title'); if (titleH2) titleH2.textContent =
+    currentLanguage === 'es' ? 'Certificaciones y Voluntariado' : 'Certifications & Volunteering';
 
   const certsH5 = q('#certs-title');
   const volH5   = q('#vol-title');
   const certsUl = q('#certs-list');
   const volUl   = q('#vol-list');
-
   if (!certsUl || !volUl) return;
 
-  // reset lists (prevents duplicates)
-  certsUl.innerHTML = '';
-  volUl.innerHTML = '';
+  clear(certsUl); clear(volUl);
 
-  // certs
+  const certsTitle = currentLanguage === 'es' ? 'Certificaciones' : 'Certifications';
+  const volTitle   = currentLanguage === 'es' ? 'Voluntariado'   : 'Volunteering';
+
   if (certs.length) {
     if (certsH5) { certsH5.hidden = false; certsH5.textContent = certsTitle; }
     certs.forEach(c => {
@@ -564,11 +451,8 @@ function renderCertsAndVolunteering(certs = [], volunteering = []) {
         certsUl.appendChild(basic);
       }
     });
-  } else if (certsH5) {
-    certsH5.hidden = true;
-  }
+  } else if (certsH5) certsH5.hidden = true;
 
-  // volunteering
   if (volunteering.length) {
     if (volH5) { volH5.hidden = false; volH5.textContent = volTitle; }
     volunteering.forEach(v => {
@@ -577,15 +461,9 @@ function renderCertsAndVolunteering(certs = [], volunteering = []) {
         set(li, 'title', v.title || '');
         set(li, 'org', v.org || '');
         set(li, 'dates', v.dates || '');
-        if (v.summary) {
-          const wrapSpan = li.querySelector('[data-t="summaryWrap"]');
-          if (wrapSpan) wrapSpan.innerHTML = `: ${escapeHTML(v.summary)}`;
-        }
+        if (v.summary) li.querySelector('[data-t="summaryWrap"]').innerHTML = `: ${escapeHTML(v.summary)}`;
         const hl = li.querySelector('[data-t="highlights"]');
-        if (v.highlights?.length && hl) {
-          hl.hidden = false;
-          hl.innerHTML = v.highlights.map(h => `<li>${h}</li>`).join('');
-        }
+        if (v.highlights?.length) { hl.hidden = false; hl.innerHTML = v.highlights.map(h => `<li>${h}</li>`).join(''); }
         volUl.appendChild(li);
       } else {
         const basic = document.createElement('li');
@@ -598,7 +476,5 @@ function renderCertsAndVolunteering(certs = [], volunteering = []) {
         }
       }
     });
-  } else if (volH5) {
-    volH5.hidden = true;
-  }
+  } else if (volH5) volH5.hidden = true;
 }
