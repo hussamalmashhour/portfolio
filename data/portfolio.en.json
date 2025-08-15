@@ -154,46 +154,46 @@
   ]
 },
 
-"experience": [
-  {
-    "id": "yes-mobile-dev",
-    "role": "Mobile Application Developer",
-    "company": "YES, for Online Services",
-    "location": "Homs, Syria",
-    "employment": { "type": "Hybrid", "start": "2023-07", "end": "2024-08" },
-    "summary": "Designed, developed, and maintained cross-platform mobile applications using Flutter and Dart, delivering robust, high-performance solutions with intuitive UIs and seamless backend integrations. Focused on optimizing app performance, implementing state management patterns (GetX/BLoC), and ensuring smooth user experiences through rigorous testing and iteration.",
-    "stack": ["Flutter", "Dart", "BLoC", "GetX", "Firebase", "REST API", "Figma"],
-    "highlights": [
-      "Delivered 3+ production-grade mobile apps, implementing responsive UIs from Figma prototypes and ensuring consistency across devices.",
-      "Reduced app loading time by 30% through Firebase query optimization and caching strategies.",
-      "Integrated RESTful APIs and Firebase services, enabling real-time data synchronization and secure authentication.",
-      "Implemented state management solutions (BLoC and GetX) for predictable, maintainable, and scalable app behavior.",
-      "Collaborated with cross-functional teams to manage releases, maintain version control, and improve UX through user testing."
-    ],
-    "links": [    ],
-    "tags": ["mobile", "flutter", "performance", "ui-ux", "firebase"]
-  },
-  {
-    "id": "batec-ict",
-    "role": "Junior ICT Engineer",
-    "company": "BATEC (BEAM Regional Gypsum Board Company)",
-    "location": "Homs, Syria",
-    "employment": { "type": "Onsite", "start": "2023-09", "end": "2024-03" },
-    "summary": "Provided end-to-end IT support, network troubleshooting, and system security for enterprise operations. Ensured SLA compliance, strengthened IT policies, and automated asset management processes to improve operational efficiency.",
-    "stack": ["Python", "Networking", "Windows Administration", "IT Security"],
-    "highlights": [
-      "Resolved 95% of high-priority incidents within SLA, minimizing downtime and maintaining service reliability.",
-      "Reduced system vulnerabilities by 40% by enforcing security policies and conducting regular audits.",
-      "Automated hardware and software asset tracking using Python scripts, improving inventory accuracy and audit readiness.",
-      "Delivered prompt, clear technical support and documentation to end-users, enhancing IT service satisfaction.",
-      "Collaborated with IT leadership to maintain confidentiality, compliance, and smooth day-to-day operations."
-    ],
-    "links": [
-      { "label": "Company Site", "href": "https://example.com/batec" }
-    ],
-    "tags": ["it", "security", "automation", "asset-management", "sla-compliance"]
-  }
-],
+  "experience": [
+    {
+      "id": "yes-mobile-dev",
+      "role": "Mobile Application Developer",
+      "company": "YES, for Online Services",
+      "location": "Homs, Syria",
+      "employment": { "type": "Hybrid", "start": "2023-07", "end": "2024-08" },
+      "summary": "Designed, developed, and maintained cross-platform mobile applications using Flutter and Dart, delivering robust, high-performance solutions with intuitive UIs and seamless backend integrations. Focused on optimizing app performance, implementing state management patterns (GetX/BLoC), and ensuring smooth user experiences through rigorous testing and iteration.",
+      "stack": ["Flutter", "Dart", "BLoC", "GetX", "Firebase", "REST API", "Figma"],
+      "highlights": [
+        "Delivered 3+ production-grade mobile apps, implementing responsive UIs from Figma prototypes and ensuring consistency across devices.",
+        "Reduced app loading time by 30% through Firebase query optimization and caching strategies.",
+        "Integrated RESTful APIs and Firebase services, enabling real-time data synchronization and secure authentication.",
+        "Implemented state management solutions (BLoC and GetX) for predictable, maintainable, and scalable app behavior.",
+        "Collaborated with cross-functional teams to manage releases, maintain version control, and improve UX through user testing."
+      ],
+      "links": [    ],
+      "tags": ["mobile", "flutter", "performance", "ui-ux", "firebase"]
+    },
+    {
+      "id": "batec-ict",
+      "role": "Junior ICT Engineer",
+      "company": "BATEC (BEAM Regional Gypsum Board Company)",
+      "location": "Homs, Syria",
+      "employment": { "type": "Onsite", "start": "2023-09", "end": "2024-03" },
+      "summary": "Provided end-to-end IT support, network troubleshooting, and system security for enterprise operations. Ensured SLA compliance, strengthened IT policies, and automated asset management processes to improve operational efficiency.",
+      "stack": ["Python", "Networking", "Windows Administration", "IT Security"],
+      "highlights": [
+        "Resolved 95% of high-priority incidents within SLA, minimizing downtime and maintaining service reliability.",
+        "Reduced system vulnerabilities by 40% by enforcing security policies and conducting regular audits.",
+        "Automated hardware and software asset tracking using Python scripts, improving inventory accuracy and audit readiness.",
+        "Delivered prompt, clear technical support and documentation to end-users, enhancing IT service satisfaction.",
+        "Collaborated with IT leadership to maintain confidentiality, compliance, and smooth day-to-day operations."
+      ],
+      "links": [
+        { "label": "Company Site", "href": "https://example.com/batec" }
+      ],
+      "tags": ["it", "security", "automation", "asset-management", "sla-compliance"]
+    }
+  ],
 
   "projects": [
     {
@@ -479,7 +479,7 @@
       "courses": [],
       "thesis": null,
       "links": [
-        { "label": "Program Page", "href": "https://example.com/usalamanca/msc-informatics" }
+        { "label": "Program Page", "href": "https://masterii.usal.es/" }
       ]
     },
     {
