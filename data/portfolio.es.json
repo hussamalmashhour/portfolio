@@ -72,8 +72,8 @@
       }
     ],
     "downloadables": [
-      { "label": "Descargar CV (EN, PDF)", "href": "assets/cv/Hussam-AlMashhour-Resume.pdf" },
-      { "label": "Descargar CV (ES, PDF)", "href": "assets/cv/Hussam-AlMashhour-ES.pdf" }
+      { "label": "Descargar CV (EN, PDF)", "href": "assets/cv/Hussam_AlMashhour_Resume_EN.pdf" },
+      { "label": "Descargar CV (ES, PDF)", "href": "assets/cv/Hussam_AlMashhour_Resume_ES.pdf" }
     ],
     "languages": [
       { "name": "Árabe", "level": "Nativo", "iso": "ar" },
