@@ -26,7 +26,7 @@
   "about": {
     "name": { "first": "Hussam", "last": "Al Mashhour" },
     "headline": "Full-Stack & Mobile Software Engineer | Flutter • Laravel • Vue",
-    "location": { "city": "Madrid", "country": "Spain, Open to relocation", "remote": true, "onsite": true },
+    "location": { "city": "Salamanca", "country": "Spain, Open to relocation", "remote": true, "onsite": true },
     "avatar": "assets/img/profile.jpg",
     "summary": "Full-stack software engineer with a proven track record in delivering high-quality mobile and web applications from concept to deployment. Specialized in Flutter (BLoC/GetX), Laravel, and Vue.js, with expertise in designing scalable REST APIs, architecting clean and maintainable codebases, and integrating modern cloud services like Firebase. Adept at bridging the gap between elegant UI/UX design and robust backend logic, and passionate about creating solutions that are performant, secure, and user-focused. Skilled in agile workflows, cross-functional collaboration, and delivering projects under tight deadlines while maintaining code quality and test coverage.",
     "availability": {
