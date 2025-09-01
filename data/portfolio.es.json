@@ -238,6 +238,167 @@
       "tags": ["fullstack", "architecture", "ai", "machine-learning", "mobile"]
     },
     {
+  "id": "interactive-visualization-col-lpp",
+  "name": "Visualización Interactiva de Datos Abiertos",
+  "subtitle": "Aplicación Web — Costo de Vida vs Poder Adquisitivo",
+      "dates": "2025",
+  "role": "Ingeniera de Visualización de Datos (Proyecto Académico)",
+  "summary": "Aplicación web responsive para explorar la relación entre el Costo de Vida y el Poder Adquisitivo Local en ciudades del mundo. Incluye un diagrama de dispersión y un mapa geográfico (index), vistas por rankings (rankings), análisis basados en ratios (ratio analysis) y herramientas de agrupamiento (clustering). Desarrollada con D3.js, Vega-Lite y Tailwind CSS en frontend; el preprocesamiento y el clustering K-Means se realizaron en Python (Pandas, scikit-learn) en Colab; despliegue en GitHub Pages.",
+  "outcomes": [
+    "Implementación de vistas interactivas (dispersión y mapa) con zoom, selección, tooltips y tabla de comparación de ciudades cercanas en la página principal.",
+    "Creación de rankings multi-métrica con búsqueda y paginación (ciudades más caras/asequibles, poder adquisitivo y valor).",
+    "Desarrollo de análisis por ratios (restaurantes vs supermercados, poder adquisitivo vs alquiler, eficiencia de costos) con paginación y búsqueda.",
+    "Vistas de clustering y agrupación con K ajustable (3–5), paginación y búsqueda de ciudades; añadido un indicador para ciudades amigables con estudiantes/teletrabajo.",
+    "Confirmación de correlación moderada (~0,6) entre costo de vida y poder adquisitivo; resultados y lecciones documentadas.",
+    "Optimización del renderizado y gestión de datos para CSVs grandes; UI responsive con Tailwind y manejo claro de errores."
+  ],
+  "stack": [
+    "JavaScript",
+    "D3.js",
+    "Vega-Lite",
+    "Tailwind CSS",
+    "HTML5",
+    "Python",
+    "Pandas",
+    "scikit-learn",
+    "Google Colab",
+    "GitHub Pages"
+  ],
+  "links": [
+    { "label": "Demo en vivo", "href": "https://hussamalmashhour.github.io/Interactive_visualization_of_open_data/" },
+    { "label": "Repositorio GitHub", "href": "https://github.com/hussamalmashhour/Interactive_visualization_of_open_data/tree/master" },
+    { "label": "Notebook en Colab", "href": "https://colab.research.google.com/drive/1MZMf_dhHXOWxtDxMFY4qDP4YJo8qVLYi" }
+  ],
+  "media": [],
+  "tags": [
+    "visualizacion-de-datos",
+    "d3",
+    "vega-lite",
+    "tailwindcss",
+    "k-means",
+    "interactivo",
+    "datos-abiertos",
+    "mapas",
+    "ratios",
+    "rankings"
+  ]
+},
+{
+  "id": "mushroom-id3",
+  "name": "Clasificación de Hongos con ID3",
+  "subtitle": "Proyecto Académico de Aprendizaje Automático",
+      "dates": "2025",
+  "role": "Ingeniero de Machine Learning (Proyecto Académico)",
+  "summary": "Proyecto estudiantil que implementa el algoritmo de Árboles de Decisión ID3 para clasificar hongos como comestibles o venenosos utilizando el Mushroom Classification Dataset (8.124 instancias, 22 características categóricas). El flujo incluyó preprocesamiento con codificación de etiquetas (Label Encoding), división en conjuntos de entrenamiento y prueba, y entrenamiento de un DecisionTreeClassifier con criterio de entropía para replicar ID3. El modelo alcanzó una precisión del 100% en el conjunto de prueba, confirmada con la matriz de confusión y el reporte de clasificación. El análisis de importancia de características destacó atributos como spore-print-color, gill-size y stalk-root como los más influyentes.",
+  "outcomes": [
+    "Preprocesamiento de 8.124 muestras categóricas del conjunto de datos de Kaggle/UCI mediante Label Encoding.",
+    "Entrenamiento de un clasificador de Árbol de Decisión (ID3) con criterio de entropía, logrando 100% de precisión en el conjunto de prueba.",
+    "Visualización del árbol de decisión, mostrando atributos clave como olor, color de las láminas y magulladuras como fuertes indicadores de comestibilidad.",
+    "Generación de matriz de confusión, reporte de clasificación y métricas de precisión/recall/F1 — todas con puntuación perfecta.",
+    "Comparación de ID3 con Naïve Bayes, Random Forest y Redes Neuronales, discutiendo interpretabilidad, robustez y costo computacional.",
+    "Identificación de spore-print-color, gill-size y stalk-root como las características más importantes en la clasificación.",
+    "Propuestas de mejora: poda del árbol para evitar sobreajuste, validación cruzada y ajuste de hiperparámetros para mayor robustez."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "Google Colab"
+  ],
+  "links": [
+    { "label": "Notebook en Colab", "href": "https://colab.research.google.com/drive/1Ego8l5jpD88hpKFnalFxdyZODeQlSiFH" }
+  ],
+  "media": [],
+  "tags": [
+    "arbol-de-decision",
+    "id3",
+    "clasificacion",
+    "machine-learning",
+    "python",
+    "scikit-learn",
+    "preprocesamiento"
+  ]
+},
+{
+  "id": "poker-hands-id3",
+  "name": "Clasificación de Manos de Póker con ID3",
+  "subtitle": "Proyecto Académico de Machine Learning",
+      "dates": "2025",
+  "role": "Ingeniero/a de Machine Learning (Proyecto Académico)",
+  "summary": "Proyecto para clasificar manos de póker con el Poker Hand Dataset (entrenamiento: 25.010 filas; prueba: 1.000.000 filas). El flujo incluye EDA, tratamiento del desbalance (sobremuestreo + SMOTE) y entrenamiento/evaluación de modelos. El modelo principal es un Árbol de Decisión estilo ID3 (entropía), comparado con Random Forest, Naïve Bayes y Regresión Logística. Los resultados muestran la dificultad de las clases raras y la ventaja de los métodos de conjunto.",
+  "outcomes": [
+    "Carga y exploración del dataset; verificación de valores faltantes y eliminación de una anomalía en prueba antes del entrenamiento y la evaluación.",
+    "Equilibrado del fuerte desbalance de clases mediante sobremuestreo y SMOTE para evitar sesgo hacia manos comunes.",
+    "Entrenamiento de un Árbol de Decisión estilo ID3 (entropía) y evaluación con matriz de confusión e importancia de características.",
+    "Benchmark de modelos: Árbol de Decisión (~42.51% accuracy en test), Random Forest (~55.88%), Naïve Bayes (~16.23%), Regresión Logística (~9.18%).",
+    "Poda del árbol (p. ej., profundidad máxima y muestras mínimas): redujo el sobreajuste pero también la precisión (~25.26% en una ejecución).",
+    "Identificación de rasgos influyentes (p. ej., rangos de cartas y palos específicos) y documentación de los trade-offs entre interpretabilidad y rendimiento."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "imbalanced-learn (SMOTE)",
+    "Google Colab"
+  ],
+  "links": [
+    { "label": "Notebook en Colab", "href": "https://colab.research.google.com/drive/1t-giGq-rCSUQbJIXsUTOXR_pwk_jnQVk" }
+  ],
+  "media": [],
+  "tags": [
+    "machine-learning",
+    "clasificacion",
+    "arbol-de-decision",
+    "id3",
+    "datos-desbalanceados",
+    "smote",
+    "random-forest",
+    "poker-hand"
+  ]
+},
+{
+  "id": "heart-disease-id3",
+  "name": "Predicción de Enfermedades Cardíacas con Árbol de Decisión",
+  "subtitle": "Proyecto Académico de Machine Learning",
+      "dates": "2025",
+  "role": "Ingeniero/a de Machine Learning (Proyecto Académico)",
+  "summary": "Proyecto estudiantil que aplica clasificadores de Árboles de Decisión para predecir enfermedades cardíacas usando el dataset de Heart Disease (1.025 registros, 14 características). El flujo incluyó exploración de datos, selección de características, preprocesamiento (estandarización) y entrenamiento/evaluación de múltiples modelos. El Árbol de Decisión alcanzó una precisión del 98.54%, mientras que Random Forest superó con 100%. También se evaluaron Regresión Logística, SVM y KNN.",
+  "outcomes": [
+    "Exploración y visualización del dataset (1.025 filas, 14 características) para comprender distribuciones y correlaciones.",
+    "Selección de nueve características clave basadas en correlación: cp, thalach, slope, oldpeak, exang, ca, thal, sex, age.",
+    "Estandarización de características con StandardScaler para mejorar la convergencia y la comparabilidad de los modelos.",
+    "Entrenamiento de un clasificador de Árbol de Decisión (profundidad máxima = 5) — alcanzó 98.54% de precisión en test.",
+    "Comparación de modelos: Random Forest (100%), SVM (~92.68%), KNN (~84.88%), Regresión Logística (~83.41%).",
+    "Generación de visualizaciones del árbol, gráficos de importancia de características y matrices de confusión.",
+    "Conclusión: Random Forest es el modelo más robusto, mientras que los Árboles de Decisión son interpretables pero propensos al sobreajuste."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "Google Colab"
+  ],
+  "links": [
+    { "label": "Notebook en Colab", "href": "https://colab.research.google.com/drive/1npZeYHg6hw_QhW5bmZbVn2N4GfzSfvPd" }
+  ],
+  "media": [],
+  "tags": [
+    "machine-learning",
+    "arbol-de-decision",
+    "random-forest",
+    "clasificacion",
+    "enfermedad-cardiaca",
+    "python",
+    "scikit-learn"
+  ]
+},
+    {
       "id": "id-book",
       "name": "ID-BOOK",
       "subtitle": "Aplicación Móvil",

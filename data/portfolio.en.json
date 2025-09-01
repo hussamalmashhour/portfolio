@@ -237,7 +237,167 @@
       "media": [],
       "tags": ["fullstack", "architecture", "ai", "machine-learning", "mobile"]
     },
-
+    {
+      "id": "interactive-visualization-col-lpp",
+      "name": "Interactive Visualization of Open Data",
+      "subtitle": "Web App — Cost of Living vs Purchasing Power",
+      "dates": "2025",
+      "role": "Data Visualization Engineer (Student Project)",
+      "summary": "A responsive web app to explore the relationship between Cost of Living and Local Purchasing Power across world cities. It provides an interactive scatter plot and a geographic map (index), ranked views (rankings), ratio-based analytics (ratio analysis), and clustering/grouping tools (clustering). Built with D3.js, Vega-Lite, and Tailwind CSS on the frontend; data preprocessing and K-Means clustering were done in Python (Pandas, scikit-learn) via Colab; deployed to GitHub Pages.",
+      "outcomes": [
+        "Implemented interactive scatter and map views with zoom, selection, tooltips, and a nearby-cities comparison table on the index page.",
+        "Delivered multi-metric rankings with search and pagination (most expensive/affordable, purchasing power, value score).",
+        "Built ratio analytics (dining vs grocery, purchasing power vs rent, cost-efficiency) with paginated, searchable visuals.",
+        "Developed clustering & grouping views with adjustable K (3–5), paging, and city search; added student/remote-friendly scoring.",
+        "Confirmed a moderate correlation (~0.6) between cost of living and purchasing power in the dataset; documented findings and lessons learned.",
+        "Optimized rendering and data handling for large CSVs; ensured responsive UI with Tailwind and clear error handling."
+      ],
+      "stack": [
+        "JavaScript",
+        "D3.js",
+        "Vega-Lite",
+        "Tailwind CSS",
+        "HTML5",
+        "Python",
+        "Pandas",
+        "scikit-learn",
+        "Google Colab",
+        "GitHub Pages"
+      ],
+      "links": [
+        { "label": "Live Demo", "href": "https://hussamalmashhour.github.io/Interactive_visualization_of_open_data/" },
+        { "label": "GitHub Repo", "href": "https://github.com/hussamalmashhour/Interactive_visualization_of_open_data/tree/master" },
+        { "label": "Colab Notebook", "href": "https://colab.research.google.com/drive/1MZMf_dhHXOWxtDxMFY4qDP4YJo8qVLYi" }
+      ],
+      "media": [],
+      "tags": [
+        "data-visualization",
+        "d3",
+        "vega-lite",
+        "tailwindcss",
+        "k-means",
+        "interactive",
+        "open-data",
+        "maps",
+        "ratios",
+        "rankings"
+      ]
+    },
+{
+  "id": "mushroom-id3",
+  "name": "Mushroom Classification with ID3",
+  "subtitle": "Machine Learning Student Project",
+  "dates": "2025",
+  "role": "Machine Learning Engineer (Student Project)",
+  "summary": "A student project implementing the ID3 Decision Tree algorithm to classify mushrooms as edible or poisonous using the Mushroom Classification Dataset (8,124 instances, 22 categorical features). The workflow included preprocessing with Label Encoding, splitting data into training and testing sets, and training a DecisionTreeClassifier with entropy criterion to mimic ID3. The project achieved 100% accuracy on the test set, confirmed with a confusion matrix and classification report. Feature importance analysis highlighted attributes such as spore-print-color, gill-size, and stalk-root as most influential.",
+  "outcomes": [
+    "Preprocessed 8,124 categorical samples from the Kaggle/UCI Mushroom Dataset using Label Encoding.",
+    "Trained a Decision Tree classifier (ID3) with entropy criterion and achieved 100% accuracy on the test set.",
+    "Visualized the decision tree, showing key attributes like odor, gill-color, and bruises as strong indicators of edibility.",
+    "Generated confusion matrix, classification report, and precision/recall/F1 metrics — all perfect scores.",
+    "Compared ID3 with Naïve Bayes, Random Forest, and Neural Networks, discussing interpretability, robustness, and computational cost.",
+    "Identified spore-print-color, gill-size, and stalk-root as the most important features in model classification.",
+    "Suggested improvements: pruning to avoid overfitting, cross-validation, and hyperparameter tuning for robustness."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "Google Colab"
+  ],
+  "links": [
+    { "label": "Colab Notebook", "href": "https://colab.research.google.com/drive/1Ego8l5jpD88hpKFnalFxdyZODeQlSiFH" }
+  ],
+  "media": [],
+  "tags": [
+    "decision-tree",
+    "id3",
+    "classification",
+    "machine-learning",
+    "python",
+    "scikit-learn",
+    "data-preprocessing"
+  ]
+},
+{
+  "id": "poker-hands-id3",
+  "name": "Poker Hand Classification with ID3",
+  "subtitle": "Machine Learning Student Project",
+  "dates": "2025",
+  "role": "Machine Learning Engineer (Student Project)",
+  "summary": "A project that classifies poker hands using the Poker Hand Dataset (train: 25,010 rows; test: 1,000,000 rows). The pipeline covers EDA, class-imbalance handling (oversampling + SMOTE), and model training/evaluation. The primary model is an ID3-like Decision Tree (entropy), compared against Random Forest, Naïve Bayes, and Logistic Regression. Results highlight the challenge of rare classes and the benefits of ensemble methods.",
+  "outcomes": [
+    "Loaded and explored the Poker Hand Dataset; verified minimal missing values and removed one test-row anomaly before training and evaluation.",
+    "Balanced severe class imbalance with oversampling and SMOTE to avoid bias toward common hands.",
+    "Trained an ID3-style Decision Tree (entropy) and evaluated on held-out data; analyzed confusion matrix and feature importances.",
+    "Benchmarked multiple models: Decision Tree (~42.51% test accuracy), Random Forest (~55.88%), Naïve Bayes (~16.23%), Logistic Regression (~9.18%).",
+    "Applied pruning to the Decision Tree (e.g., max depth/min samples) — reduced overfitting but also accuracy (~25.26% in one run).",
+    "Identified influential features (e.g., ranks of certain cards and specific suits) and documented trade-offs between interpretability and performance."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "imbalanced-learn (SMOTE)",
+    "Google Colab"
+  ],
+  "links": [
+    { "label": "Colab Notebook", "href": "https://colab.research.google.com/drive/1t-giGq-rCSUQbJIXsUTOXR_pwk_jnQVk" }
+  ],
+  "media": [],
+  "tags": [
+    "machine-learning",
+    "classification",
+    "decision-tree",
+    "id3",
+    "imbalanced-data",
+    "smote",
+    "random-forest",
+    "poker-hand"
+  ]
+},
+{
+  "id": "heart-disease-id3",
+  "name": "Heart Disease Prediction with Decision Tree",
+  "subtitle": "Machine Learning Student Project",
+  "dates": "2025",
+  "role": "Machine Learning Engineer (Student Project)",
+  "summary": "A student project that applies Decision Tree classifiers to predict heart disease using the Heart Disease dataset (1,025 records, 14 features). The workflow included data exploration, feature selection, preprocessing (standardization), and training/evaluation of multiple models. The Decision Tree achieved 98.54% accuracy, while Random Forest outperformed with 100%. Other models tested include Logistic Regression, SVM, and KNN.",
+  "outcomes": [
+    "Explored and visualized dataset (1,025 rows, 14 features) to understand distributions and correlations.",
+    "Selected nine key features based on correlation analysis: cp, thalach, slope, oldpeak, exang, ca, thal, sex, age.",
+    "Standardized features with StandardScaler to improve model convergence and comparability.",
+    "Trained Decision Tree classifier (max depth=5) — achieved 98.54% accuracy on test set.",
+    "Compared multiple models: Random Forest (100%), SVM (~92.68%), KNN (~84.88%), Logistic Regression (~83.41%).",
+    "Generated decision tree visualizations, feature importance plots, and confusion matrices.",
+    "Concluded that Random Forest is the most robust, while Decision Trees remain interpretable but prone to overfitting."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "Google Colab"
+  ],
+  "links": [
+    { "label": "Colab Notebook", "href": "https://colab.research.google.com/drive/1npZeYHg6hw_QhW5bmZbVn2N4GfzSfvPd" }
+  ],
+  "media": [],
+  "tags": [
+    "machine-learning",
+    "decision-tree",
+    "random-forest",
+    "classification",
+    "heart-disease",
+    "python",
+    "scikit-learn"
+  ]
+},
     {
   "id": "id-book",
   "name": "ID-BOOK",
