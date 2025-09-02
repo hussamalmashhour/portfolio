@@ -685,14 +685,14 @@
     },
     {
       "degree": "B.Sc. Software Engineering & Information Systems",
-      "school": "Al‑Baath University",
+      "school": "Homs University",
       "location": "Syria",
       "start": "2018",
       "end": "2023",
       "courses": ["Software Engineering", "Information Systems"],
       "thesis": null,
       "links": [
-        { "label": "Faculty Page", "href": "https://example.com/albaath/software-engineering" }
+        { "label": "University Page", "href": "https://homs-univ.edu.sy/en/" }
       ]
     }
   ],

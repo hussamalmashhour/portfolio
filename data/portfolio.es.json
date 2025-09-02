@@ -679,13 +679,16 @@
     },
     {
       "degree": "B.Sc. Ingeniería de Software & Sistemas de Información",
-      "school": "Universidad Al‑Baath",
+      "school": "Universidad de Homs",
       "location": "Siria",
       "start": "2018",
       "end": "2023",
       "courses": ["Ingeniería de Software", "Sistemas de Información"],
       "thesis": null,
-      "links": []
+      "links": [
+      { "label": "Página de la Universidad", "href": "https://homs-univ.edu.sy/en/" }
+
+      ]
     }
   ],
 
