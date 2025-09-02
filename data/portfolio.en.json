@@ -398,6 +398,47 @@
     "scikit-learn"
   ]
 },
+{
+  "id": "iwd-twitter-analysis",
+  "name": "International Women’s Day Twitter Analysis",
+  "subtitle": "Social Media & Network Analysis Project",
+  "dates": "2025",
+  "role": "Data Analyst (Student Project)",
+  "summary": "A project analyzing Twitter conversations during International Women’s Day 2021 using the Kaggle dataset 'International Women’s Day Tweets'. Applied text mining, sentiment analysis, and network/community detection. Python was used for preprocessing, extracting mentions, community detection (Louvain), word clouds, and sentiment classification with VADER. Gephi was used for graph visualization and modularity-based community coloring.",
+  "outcomes": [
+    "Processed dataset of IWD tweets and extracted user interactions (nodes and edges) for social network analysis.",
+    "Identified the 10 most mentioned users as influencers using regex, pandas, and Counter.",
+    "Detected communities in the Twitter graph with Louvain modularity and visualized them in Gephi.",
+    "Generated word clouds for each detected community to highlight dominant discussion topics.",
+    "Performed sentiment analysis with VADER: classified tweets as positive, neutral, or negative; most tweets were positive, reflecting celebration of the event.",
+    "Produced clear visualizations (graphs, bar plots, word clouds) to interpret engagement and tone."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "NLTK (VADER)",
+    "NetworkX",
+    "community-louvain",
+    "matplotlib",
+    "wordcloud",
+    "Gephi"
+  ],
+  "links": [
+    { "label": "Kaggle Dataset", "href": "https://www.kaggle.com/datasets/michau96/international-womens-day-tweets" },
+    { "label": "Colab Notebook", "href": "https://colab.research.google.com/drive/1SgM4Ml897I2Cr27C6clnSSLn1zhIJYUX" }
+  ],
+  "media": [],
+  "tags": [
+    "twitter-analysis",
+    "social-network-analysis",
+    "sentiment-analysis",
+    "community-detection",
+    "iwd",
+    "text-mining",
+    "python",
+    "gephi"
+  ]
+},
     {
   "id": "id-book",
   "name": "ID-BOOK",

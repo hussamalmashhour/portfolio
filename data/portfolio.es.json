@@ -398,6 +398,48 @@
     "scikit-learn"
   ]
 },
+{
+  "id": "iwd-twitter-analysis",
+  "name": "Análisis de Twitter del Día Internacional de la Mujer",
+  "subtitle": "Proyecto de Análisis de Redes Sociales",
+  "dates": "2025",
+  "role": "Analista de Datos (Proyecto Académico)",
+  "summary": "Proyecto que analiza la conversación en Twitter durante el Día Internacional de la Mujer 2021 utilizando el dataset de Kaggle 'International Women’s Day Tweets'. Se aplicaron técnicas de minería de textos, análisis de sentimientos y detección de comunidades en redes sociales. Con Python se realizó el preprocesamiento, extracción de menciones, detección de comunidades (Louvain), nubes de palabras y análisis de sentimientos con VADER. Gephi se utilizó para la visualización de grafos y coloreado por modularidad.",
+  "outcomes": [
+    "Procesamiento del dataset de tweets del 8M y extracción de interacciones de usuarios (nodos y aristas) para análisis de red.",
+    "Identificación de los 10 usuarios más mencionados como influyentes usando expresiones regulares, pandas y Counter.",
+    "Detección de comunidades en el grafo de Twitter con el algoritmo Louvain y visualización en Gephi.",
+    "Generación de nubes de palabras para cada comunidad detectada, mostrando los temas predominantes.",
+    "Análisis de sentimientos con VADER: clasificación de tweets en positivos, neutros o negativos; predominó el sentimiento positivo, reflejando la celebración del evento.",
+    "Creación de visualizaciones claras (grafos, diagramas de barras, nubes de palabras) para interpretar participación y tono."
+  ],
+  "stack": [
+    "Python",
+    "pandas",
+    "NLTK (VADER)",
+    "NetworkX",
+    "community-louvain",
+    "matplotlib",
+    "wordcloud",
+    "Gephi"
+  ],
+  "links": [
+    { "label": "Dataset Kaggle", "href": "https://www.kaggle.com/datasets/michau96/international-womens-day-tweets" },
+    { "label": "Notebook en Colab", "href": "https://colab.research.google.com/drive/1SgM4Ml897I2Cr27C6clnSSLn1zhIJYUX" }
+  ],
+  "media": [],
+  "tags": [
+    "analisis-twitter",
+    "analisis-redes-sociales",
+    "analisis-sentimientos",
+    "deteccion-comunidades",
+    "iwd",
+    "mineria-textos",
+    "python",
+    "gephi"
+  ]
+},
+
     {
       "id": "id-book",
       "name": "ID-BOOK",
