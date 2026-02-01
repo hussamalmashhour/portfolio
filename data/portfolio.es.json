@@ -78,7 +78,7 @@
     "languages": [
       { "name": "Árabe", "level": "Nativo", "iso": "ar" },
       { "name": "Inglés", "level": "C1", "iso": "en" },
-      { "name": "Español", "level": "B2", "iso": "es" },
+      { "name": "Español", "level": "C1", "iso": "es" },
       { "name": "Francés", "level": "A1", "iso": "fr" }
     ]
   },
